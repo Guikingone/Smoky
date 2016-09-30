@@ -10,5 +10,6 @@
         }
     ],
     "require": {
+        "symfony/http-foundation": "^3.1"
     }
 }
