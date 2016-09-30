@@ -1,0 +1,14 @@
+{
+    "name": "guillaume/smoky",
+    "description": "A simple php framework using the foundations of giants",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Guikingone",
+            "email": "guillaume.loulier@hotmail.fr"
+        }
+    ],
+    "require": {
+    }
+}
