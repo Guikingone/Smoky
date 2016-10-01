@@ -1,3 +1,1 @@
-<?php $argument = $request->get('name') ?>
-
-<p>Hello <?php echo htmlspecialchars($argument, ENT_QUOTES, 'UTF-8') ?>, comment vas-tu ?</p>
+Hello <?php echo htmlspecialchars(isset($name) ? $name . ', comment vas-tu ?' : '', ENT_QUOTES, 'UTF-8') ?>
