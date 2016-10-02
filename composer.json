@@ -9,8 +9,15 @@
             "email": "guillaume.loulier@hotmail.fr"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "": "src/"
+        }
+    },
     "require": {
         "symfony/http-foundation": "^3.1",
-        "symfony/routing": "^3.1"
+        "symfony/routing": "^3.1",
+        "symfony/http-kernel": "^3.1"
     }
 }
