@@ -12,13 +12,19 @@
 namespace Core\Smoky;
 
 use Symfony\Component\HttpKernel\HttpKernel;
+use Core\Smoky\Router\Router;
 
 /**
- * Class Smoky
+ * The Smoky framework class.
+ *
  * @package Smoky
  */
 class Smoky extends HttpKernel implements
       SmokyInterface
 {
-
+    public function getRoutes()
+    {
+        $router = new Router();
+        $router->getRoutes();
+    }
 }

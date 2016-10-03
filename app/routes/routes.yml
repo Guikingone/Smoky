@@ -1,0 +1,10 @@
+# Core routes
+home:
+    path:    /
+    defaults: { _controller: 'IndexController::indexAction' }
+
+# Add your new routes here :
+
+bye:
+    path:    /bye
+    default: { _controller: 'IndexController::byAction' }

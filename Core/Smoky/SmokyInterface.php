@@ -13,7 +13,7 @@ namespace Core\Smoky;
 
 /**
  * Interface SmokyInterface
- * @package Smoky
+ * @package Core\Smoky
  */
 interface SmokyInterface
 {
