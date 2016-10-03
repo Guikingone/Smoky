@@ -18,6 +18,7 @@
     "require": {
         "symfony/http-foundation": "^3.1",
         "symfony/routing": "^3.1",
-        "symfony/http-kernel": "^3.1"
+        "symfony/http-kernel": "^3.1",
+        "symfony/dependency-injection": "^3.1"
     }
 }
