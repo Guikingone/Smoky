@@ -9,13 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Core\Smoky;
+namespace Smoky\Smoky\Tests;
 
-/**
- * Interface SmokyInterface
- * @package Core\Smoky
- */
-interface SmokyInterface
+use PHPUnit\Framework\TestCase;
+use Smoky\Smoky\Core\Smoky;
+
+class SmokyCoreTest extends TestCase
 {
 
 }

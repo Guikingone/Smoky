@@ -48,6 +48,11 @@ class Module implements
         $this->booted = true;
     }
 
+    /**
+     * Stop the module into the progression.
+     *
+     * @return $this
+     */
     public function stop()
     {
         $this->booted = false;

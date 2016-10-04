@@ -7,7 +7,7 @@
         bootstrap="autoload.php"
 >
     <testsuites>
-        <testsuite name="Smoky Modules component test suite">
+        <testsuite name="Smoky Core test suite">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>

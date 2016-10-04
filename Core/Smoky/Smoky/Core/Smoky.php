@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Core\Smoky;
+namespace Smoky\Smoky\Core;
 
 use Symfony\Component\HttpKernel\HttpKernel;
 
 /**
  * The Smoky framework class.
  *
- * @package Smoky
+ * @package Smoky\Smoky\Model
  */
 class Smoky extends HttpKernel implements
       SmokyInterface
