@@ -13,8 +13,8 @@ require_once __DIR__.'/../app/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 
-$routes = include __DIR__ . '/../app/routes/routes.php';
 $dependencyContainer = include __DIR__ . '/../app/Dependency/DependencyContainer.php';
+$dependencyContainer->setParameter('routes', include __DIR__ . '/../app/routes/routes.php');
 
 $request = Request::createFromGlobals();
 

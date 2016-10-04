@@ -3,9 +3,10 @@
 use Symfony\Component\DependencyInjection\Reference;
 
 $smokyContainer = new \Core\Smoky\DependencyContainer\DependencyContainer();
+
 $smokyContainer->register('context', 'Symfony\Component\Routing\RequestContext');
 $smokyContainer->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')
-    ->setArguments(array($routes, new Reference('context')))
+               ->setArguments(array('%routes%', new Reference('context')))
 ;
 $smokyContainer->register('request_stack', 'Symfony\Component\HttpFoundation\RequestStack');
 $smokyContainer->register('controller_resolver', 'Symfony\Component\HttpKernel\Controller\ControllerResolver');
@@ -31,7 +32,7 @@ $smokyContainer->register('smoky', 'Core\Smoky\Smoky')
         new Reference('controller_resolver'),
         new Reference('request_stack'),
         new Reference('argument_resolver'),
-        ))
+    ))
 ;
 
 return $smokyContainer;

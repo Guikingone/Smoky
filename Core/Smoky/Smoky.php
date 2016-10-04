@@ -12,7 +12,6 @@
 namespace Core\Smoky;
 
 use Symfony\Component\HttpKernel\HttpKernel;
-use Core\Smoky\Router\Router;
 
 /**
  * The Smoky framework class.
@@ -22,9 +21,27 @@ use Core\Smoky\Router\Router;
 class Smoky extends HttpKernel implements
       SmokyInterface
 {
-    public function getRoutes()
+
+    protected $modules;
+
+    /**
+     * Save every modules passed to the method into the modules array.
+     */
+    public function registerModules()
     {
-        $router = new Router();
-        $router->getRoutes();
+        $this->modules = array();
+
+        foreach ($this->modules as $module) {
+            $name = $module->getName();
+            $this->modules[$name] = $module;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModules()
+    {
+        return $this->modules;
     }
 }
