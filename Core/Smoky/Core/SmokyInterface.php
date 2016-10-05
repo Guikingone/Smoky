@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Smoky;
+namespace Smoky\Core;
 
 /**
  * Interface SmokyInterface
- * @package Smoky\Smoky\Model
+ * @package Smoky\Core
  */
 interface SmokyInterface
 {

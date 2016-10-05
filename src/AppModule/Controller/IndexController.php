@@ -11,17 +11,20 @@
 
 namespace AppModule\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class IndexController
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return new Response('Hello, comment vas-tu ?');
+        $name = $request->get('name');
+        return new Response('Hello ' . $name . ', comment vas-tu ?');
     }
 
-    public function byeAction()
+    public function byeAction(Request $request)
     {
-        return new Response('Bye, passe une bonne journée.');
+        $name = $request->get('name');
+        return new Response('Bye ' . $name . ', passe une bonne journée.');
     }
 }

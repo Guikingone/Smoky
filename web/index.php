@@ -10,6 +10,9 @@
  */
 
 require_once __DIR__.'/../app/autoload.php';
+require_once __DIR__ . '/../Core/Smoky/autoload.php';
+require_once __DIR__ . '/../Core/DependencyContainer/autoload.php';
+require_once __DIR__ . '/../Core/Modules/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 

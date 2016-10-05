@@ -26,7 +26,7 @@ $smokyContainer->register('dispatcher', 'Symfony\Component\EventDispatcher\Event
     ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
     ->addMethodCall('addSubscriber', array(new Reference('listener.exception')))
 ;
-$smokyContainer->register('smoky', 'Core\Smoky\Smoky\Core\Smoky')
+$smokyContainer->register('smoky', 'Smoky\Core\Smoky')
     ->setArguments(array(
         new Reference('dispatcher'),
         new Reference('controller_resolver'),
