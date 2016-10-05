@@ -2,7 +2,7 @@
 
 use Symfony\Component\DependencyInjection\Reference;
 
-$smokyContainer = new \Core\Smoky\DependencyContainer\DependencyContainer();
+$smokyContainer = new \Smoky\DependencyContainer\DependencyContainer();
 
 $smokyContainer->register('context', 'Symfony\Component\Routing\RequestContext');
 $smokyContainer->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')
@@ -26,7 +26,7 @@ $smokyContainer->register('dispatcher', 'Symfony\Component\EventDispatcher\Event
     ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
     ->addMethodCall('addSubscriber', array(new Reference('listener.exception')))
 ;
-$smokyContainer->register('smoky', 'Core\Smoky\Smoky')
+$smokyContainer->register('smoky', 'Core\Smoky\Smoky\Core\Smoky')
     ->setArguments(array(
         new Reference('dispatcher'),
         new Reference('controller_resolver'),

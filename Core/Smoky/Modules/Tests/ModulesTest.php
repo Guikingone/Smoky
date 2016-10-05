@@ -12,7 +12,7 @@
 namespace Smoky\Modules\Test;
 
 use PHPUnit\Framework\TestCase;
-use Smoky\Modules\Model\Module;
+use Smoky\Modules\Module;
 
 /**
  * Class ModulesTest
@@ -46,6 +46,6 @@ class ModulesTest extends TestCase
     {
         $module = new Module();
         $module->getName();
-        static::assertEquals('Smoky\Modules\Model\Module', $module->getName());
+        static::assertEquals('Smoky\Modules\Module', $module->getName());
     }
 }

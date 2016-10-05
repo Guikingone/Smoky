@@ -1,6 +1,6 @@
 {
-  "name": "guillaume/smoky-modules",
-  "description": "The modules components of Smoky",
+  "name": "guillaume/smoky-core",
+  "description": "The core component of Smoky",
   "type": "project",
   "license": "MIT",
   "authors": [

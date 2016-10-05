@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Smoky\Core;
+namespace Smoky\Smoky;
 
 /**
  * Interface SmokyInterface

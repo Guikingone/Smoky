@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Model;
+namespace Smoky\Modules;
 
 /**
  * Class Module
- * @package Smoky\Modules\Model
+ * @package Smoky\Modules
  */
 class Module implements
       ModulesInterfaces

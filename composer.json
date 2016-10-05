@@ -11,9 +11,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "Core\\": "Core/",
             "": "src/",
-            "Test\\": "tests/"
+            "Test\\": "tests/",
+            "DependencyContainer\\": "Core/Smoky/DependencyContainer/",
+            "Modules\\": "Core/Smoky/Modules/",
+            "Smoky\\": "Core/Smoky/Smoky/"
         }
     },
     "require": {

@@ -9,14 +9,7 @@
     <testsuites>
         <testsuite name="Smoky test suite">
             <directory>./tests</directory>
-            <directory>./Core/Smoky/Modules/Tests</directory>
+            <directory>./AppModule/Tests</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-            <directory suffix=".php">./Core</directory>
-        </whitelist>
-    </filter>
 </phpunit>

@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Core\Smoky\DependencyContainer;
+namespace Smoky\DependencyContainer;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class DependencyContainer
- * @package Core\Smoky\DependencyContainer
+ * @package Smoky\DependencyContainer
  */
 class DependencyContainer extends ContainerBuilder
 {

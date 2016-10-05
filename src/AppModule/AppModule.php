@@ -2,7 +2,7 @@
 
 namespace AppModule;
 
-use Smoky\Modules\Model\Module;
+use Smoky\Modules\Module;
 
 class AppModule extends Module
 {

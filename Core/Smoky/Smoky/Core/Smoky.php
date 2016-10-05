@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Smoky\Core;
+namespace Smoky\Smoky;
 
 use Symfony\Component\HttpKernel\HttpKernel;
 
