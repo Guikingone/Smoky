@@ -13,8 +13,8 @@
         "psr-4": {
             "": "src/",
             "Test\\": "tests/",
-            "DependencyContainer\\": "Core/Smoky/DependencyContainer/",
-            "Modules\\": "Core/Smoky/Modules/",
+            "DependencyContainer\\": "Core/DependencyContainer/",
+            "Modules\\": "Core/Modules/",
             "Smoky\\": "Core/Smoky/Smoky/"
         }
     },
