@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Smoky\Tests;
+namespace Smoky\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Smoky\Core\Smoky;

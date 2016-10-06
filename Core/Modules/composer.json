@@ -11,8 +11,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "Smoky\\Modules\\": "Model",
-      "Smoky\\Modules\\Test\\": "Tests"
+      "Smoky\\Modules\\": "Model/",
+      "Smoky\\Modules\\Test\\": "Tests/"
     }
   },
   "require": {

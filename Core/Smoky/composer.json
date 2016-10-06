@@ -11,8 +11,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "Smoky\\Core\\": "Core",
-      "Smoky\\Test\\": "Tests"
+      "Smoky\\Core\\": "Core/",
+      "Smoky\\Test\\": "Tests/"
     }
   },
   "require": {
