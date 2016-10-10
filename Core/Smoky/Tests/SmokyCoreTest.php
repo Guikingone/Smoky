@@ -12,7 +12,6 @@
 namespace Smoky\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Smoky\Core\Smoky;
 
 class SmokyCoreTest extends TestCase
 {

@@ -7,4 +7,4 @@ home:
 
 bye:
     path:    /bye
-    default: { _controller: 'IndexController::byAction' }
+    default: { _controller: 'IndexController::byeAction' }

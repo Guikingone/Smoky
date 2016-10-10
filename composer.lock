@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "55dd28064c670a787b757bfd07eaf3e9",
+    "hash": "b6a7e0be394d8d9dbe33d91fcbdb9aeb",
     "content-hash": "d522aacf90bb6c0d3bc7f6e05138460d",
     "packages": [
         {
@@ -1630,7 +1630,7 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v3.1.4",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
