@@ -11,7 +11,8 @@
 
 namespace Smoky\Core;
 
-use Smoky\DependencyContainer\DependencyContainer;
+use Smoky\Modules\ModulesInterfaces;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,7 @@ use Symfony\Component\HttpKernel\HttpKernel;
  *
  * @package Smoky\Core
  */
-class Smoky extends DependencyContainer implements
+abstract class Smoky extends ContainerBuilder implements
       SmokyInterface
 {
     /** @var bool The status of the framework. */
@@ -32,14 +33,15 @@ class Smoky extends DependencyContainer implements
     /** @var array The array representing the dependencies of the core. */
     protected $dependencies = array();
 
-    /** @var array The array representing the Modules saved into the core. */
+    /** @var ModulesInterfaces[] The array representing the Modules saved into the core. */
     protected $modules;
 
     /**
      * Smoky constructor.
+     *
      * @param RouteCollection $route
      */
-    public function __construct(RouteCollection $route)
+    public function __construct(RouteCollection $route = null)
     {
         $this->register('context', 'Symfony\Component\Routing\RequestContext');
         $this->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')
@@ -76,17 +78,38 @@ class Smoky extends DependencyContainer implements
         }
 
         $this->booted = true;
+
+        try {
+            // Load the modules into the array.
+            $this->injectModules();
+        } catch (\LogicException $e) {
+            $e->getMessage();
+        }
     }
 
+    /** @inheritdoc */
+    public function bootStatus()
+    {
+        return $this->booted;
+    }
 
     /** @inheritdoc */
-    public function registerModules()
+    public function injectModules()
     {
-        $this->modules = array();
+        try {
+            $this->modules = array();
 
-        foreach ($this->modules as $module) {
-            $name = $module->getName();
-            $this->modules[$name] = $module;
+            foreach ($this->registerModules() as $module) {
+                $name = $module->getName();
+                if (array_key_exists($name, $this->modules)) {
+                    throw new \LogicException(
+                        sprintf('Impossible to register two modules with the same name : "%s"', $name)
+                    );
+                }
+                $this->modules[$name] = $module;
+            }
+        } catch (\LogicException $e) {
+            $e->getMessage();
         }
     }
 
@@ -109,7 +132,11 @@ class Smoky extends DependencyContainer implements
     /** @inheritdoc */
     public function terminate(Request $request, Response $response)
     {
-        $this->get('kernel')->terminate($request, $response);
+        try {
+            $this->get('kernel')->terminate($request, $response);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
     }
 
     /** @inheritdoc */

@@ -11,6 +11,7 @@
 
 namespace Smoky\Core;
 
+use Smoky\Modules\ModulesInterfaces;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernel;
@@ -22,19 +23,35 @@ use Symfony\Component\HttpKernel\HttpKernel;
 interface SmokyInterface
 {
     /**
-     * Allow to boot the framework.
+     * Allow to boot the framework and inject the Modules with the instance.
      */
     public function boot();
 
     /**
-     * Allow to store all the modules into the $modules array.
+     * Return the status of the framework.
+     *
+     * @return boolean
+     */
+    public function bootStatus();
+
+    /**
+     * Return a array of Modules to inject into the framework.
+     *
+     * @return ModulesInterfaces[] A array of Modules instances
      */
     public function registerModules();
 
     /**
+     * Allow to store all the modules into the $modules array.
+     *
+     * @throws \LogicException Only if tow modules with the same name are finds into the modules array.
+     */
+    public function injectModules();
+
+    /**
      * Allow to get all the Modules stored into the DependencyContainer.
      *
-     * @return mixed
+     * @return ModulesInterfaces[] A array of Modules instances
      */
     public function getModules();
 
