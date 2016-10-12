@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Tests;
+namespace Smoky\Test;
 
 use PHPUnit\Framework\TestCase;
-use Smoky\Core\Smoky;
 
 class SmokyCoreTest extends TestCase
 {
@@ -21,17 +20,40 @@ class SmokyCoreTest extends TestCase
      */
     public function testSmokyBootStatus()
     {
-        $smoky = $this->getMockForAbstractClass(Smoky::class);
+        $smoky = new MicroSmoky('dev', true);
         static::assertFalse(false, $smoky->bootStatus());
+        static::assertTrue(true, $smoky->debugStatus());
+        static::assertEquals('dev', $smoky->getEnvironment());
     }
 
     /**
-     * Test if the boot() method allow to boot the framework.
+     * Test if the process of launching a request is initialized.
      */
-    public function testSmokyBoot()
+    public function testSmokyLaunch()
     {
-        $smoky = $this->getMockForAbstractClass(Smoky::class);
-        $smoky->boot();
+        $smoky = new MicroSmoky('dev', true);
+        $smoky->launch();
+        static::assertTrue(true, $smoky->bootStatus());
+        static::assertArrayHasKey('kernel', $smoky->getDefinitions());
+    }
+
+    /**
+     * Test if the injection of a Module into the Modules array.
+     */
+    public function testSmokyModulesInjection()
+    {
+        $smoky = new MicroSmoky('dev', true);
+        $smoky->injectModules();
+        static::assertArrayHasKey('Smoky\Test\Modules\AppModule', $smoky->getModules());
+    }
+
+    /**
+     * Test if the framework can stop the execution in dev mode.
+     */
+    public function testSmokyShutdown()
+    {
+        $smoky = new MicroSmoky('dev', true);
+        $smoky->shutdown();
         static::assertTrue(true, $smoky->bootStatus());
     }
 }

@@ -13,11 +13,6 @@ class AppSmoky extends Smoky
         return $modules;
     }
 
-    public function getRootDir()
-    {
-        return __DIR__;
-    }
-
     public function getLogDir()
     {
         return dirname(__DIR__) . '/var/logs';

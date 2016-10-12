@@ -9,6 +9,15 @@
  * file that was distributed with this source code.
  */
 
-$autoload = require __DIR__ . '/vendor/autoload.php';
+namespace Smoky\Test\Modules;
 
-return $autoload;
+class AppModule
+{
+    /** @inheritdoc */
+    public function getName()
+    {
+        $name = get_class($this);
+
+        return $this->name = $name;
+    }
+}

@@ -9,6 +9,18 @@
  * file that was distributed with this source code.
  */
 
-$autoload = require __DIR__ . '/vendor/autoload.php';
+namespace Smoky\Test;
 
-return $autoload;
+use Smoky\Core\Smoky;
+use Smoky\Test\Modules\AppModule;
+
+class MicroSmoky extends Smoky
+{
+    /** @inheritdoc */
+    public function registerModules()
+    {
+        return array(
+          new AppModule()
+        );
+    }
+}

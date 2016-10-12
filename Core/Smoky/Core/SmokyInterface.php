@@ -11,6 +11,8 @@
 
 namespace Smoky\Core;
 
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\TerminableInterface;
 use Smoky\Modules\ModulesInterfaces;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,12 +22,23 @@ use Symfony\Component\HttpKernel\HttpKernel;
  * Interface SmokyInterface
  * @package Smoky\Core
  */
-interface SmokyInterface
+interface SmokyInterface extends HttpKernelInterface, TerminableInterface
 {
     /**
-     * Allow to boot the framework and inject the Modules with the instance.
+     * =================================================================================================================
+     *  GETTERS
+     * =================================================================================================================
      */
-    public function boot();
+
+    /**
+     * @return string The environment used by the framework.
+     */
+    public function getEnvironment();
+
+    /**
+     * @return boolean The status of debug mode.
+     */
+    public function debugStatus();
 
     /**
      * Return the status of the framework.
@@ -33,6 +46,61 @@ interface SmokyInterface
      * @return boolean
      */
     public function bootStatus();
+
+    /**
+     * @return float The current time since the instantiation of the framework (UNIX timestamp).
+     */
+    public function getBootTime();
+
+    /**
+     * Allow to get all the Modules stored into the DependencyContainer.
+     *
+     * @return ModulesInterfaces[] A array of Modules instances
+     */
+    public function getModules();
+
+    /**
+     * =================================================================================================================
+     *  SETTERS
+     * =================================================================================================================
+     */
+
+    /**
+     * @param string $environment
+     */
+    public function setEnvironment($environment);
+
+
+    /**
+     * @param boolean $debug
+     */
+    public function setDebug($debug);
+
+    /**
+     * @param float $bootTime
+     */
+    public function setBootTime($bootTime);
+
+    /**
+     * =================================================================================================================
+     *  CORE METHODS
+     * =================================================================================================================
+     */
+
+    /**
+     * Allow to boot the framework and inject the Modules with the instance.
+     */
+    public function boot();
+
+    /**
+     * Shutdown the framework and clear the modules saved.
+     *
+     * [WARNING]
+     *
+     * The method must be called only if a Request is not find or not launch || if the application
+     * isn't running in 'prod' mode.
+     */
+    public function shutdown();
 
     /**
      * Return a array of Modules to inject into the framework.
@@ -49,27 +117,6 @@ interface SmokyInterface
     public function injectModules();
 
     /**
-     * Allow to get all the Modules stored into the DependencyContainer.
-     *
-     * @return ModulesInterfaces[] A array of Modules instances
-     */
-    public function getModules();
-
-    /**
-     * Handle the $request Request and return a $response Response, the $type is passed automatically,
-     * the $catch parameters allow to handle all the Exceptions launched.
-     *
-     * @param Request   $request  A simple Request instance.
-     * @param integer   $type     The type of request (by default, HttpKernel::MASTER_REQUEST
-     * @param bool      $catch    Catch the Exception that occurs or not.
-     *
-     * @throws \Exception       Only if a \Exception occur during execution.
-     *
-     * @return Response         A simple Response.
-     */
-    public function handle(Request $request, $type = HttpKernel::MASTER_REQUEST, $catch = true);
-
-    /**
      * Handle the request and return the response, once the response launched, the method terminate the process.
      *
      * @param Request|null $request
@@ -79,4 +126,20 @@ interface SmokyInterface
      * @return Response
      */
     public function launch(Request $request = null);
+
+    /**
+     * =================================================================================================================
+     *  INHERIT METHODS
+     * =================================================================================================================
+     */
+
+    /**
+     * @inheritdoc
+     */
+    public function handle(Request $request, $type = HttpKernel::MASTER_REQUEST, $catch = true);
+
+    /**
+     * @inheritdoc
+     */
+    public function terminate(Request $request, Response $response);
 }

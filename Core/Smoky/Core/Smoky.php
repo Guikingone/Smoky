@@ -13,11 +13,11 @@ namespace Smoky\Core;
 
 use Smoky\Modules\ModulesInterfaces;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\Routing\RouteCollection;
 
 /**
  * The Smoky framework class.
@@ -25,10 +25,22 @@ use Symfony\Component\HttpKernel\HttpKernel;
  * @package Smoky\Core
  */
 abstract class Smoky extends ContainerBuilder implements
-      SmokyInterface
+               SmokyInterface
 {
+    /** The version of the framework. */
+    const VERSION = '1.0';
+
+    /** @var string The environment used. */
+    protected $environment;
+
+    /** @var bool If debug mode is allowed. */
+    protected $debug = false;
+
     /** @var bool The status of the framework. */
     protected $booted = false;
+
+    /** @var float The current time since the boot of the framework (using UNIX timestamp). */
+    private $bootTime;
 
     /** @var array The array representing the dependencies of the core. */
     protected $dependencies = array();
@@ -39,13 +51,18 @@ abstract class Smoky extends ContainerBuilder implements
     /**
      * Smoky constructor.
      *
-     * @param RouteCollection $route
+     * @param string               $environment The environment used.
+     * @param boolean              $debug       Allow to debug or not.
+     * @param RouteCollection|null $route
      */
-    public function __construct(RouteCollection $route = null)
+    public function __construct($environment, $debug, RouteCollection $route = null)
     {
+        $this->setEnvironment($environment);
+        $this->setDebug($debug);
+
         $this->register('context', 'Symfony\Component\Routing\RequestContext');
         $this->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')
-             ->setArguments(array($route, new Reference('context')));
+            ->setArguments(array($route, new Reference('context')));
         $this->register('request_stack', 'Symfony\Component\HttpFoundation\RequestStack');
         $this->register('controller_resolver', 'Symfony\Component\HttpKernel\Controller\ControllerResolver');
         $this->register('argument_resolver', 'Symfony\Component\HttpKernel\Controller\ArgumentResolver');
@@ -60,15 +77,24 @@ abstract class Smoky extends ContainerBuilder implements
             ->addMethodCall('addSubscriber', array(new Reference('listener.response')))
             ->addMethodCall('addSubscriber', array(new Reference('listener.exception')));
         $this->register('kernel', 'Symfony\Component\HttpKernel\HttpKernel')
-             ->setArguments(array(
-                 new Reference('dispatcher'),
-                 new Reference('controller_resolver'),
-                 new Reference('request_stack'),
-                 new Reference('argument_resolver')
-             ));
+            ->setArguments(array(
+                new Reference('dispatcher'),
+                new Reference('controller_resolver'),
+                new Reference('request_stack'),
+                new Reference('argument_resolver')
+            ));
 
         parent::__construct();
     }
+
+    /**
+     * =================================================================================================================
+     *  CORE METHODS
+     *
+     *  This methods gave access to the core of Smoky, be sure to have full knowledge about what the methods does into
+     *  the framework process.
+     * =================================================================================================================
+     */
 
     /** @inheritdoc */
     public function boot()
@@ -88,9 +114,17 @@ abstract class Smoky extends ContainerBuilder implements
     }
 
     /** @inheritdoc */
-    public function bootStatus()
+    public function shutdown()
     {
-        return $this->booted;
+        if ($this->booted = false || $this->environment = 'prod') {
+            return;
+        }
+
+        $this->booted = false;
+
+        foreach ($this->getModules() as $module) {
+            $module->stop();
+        }
     }
 
     /** @inheritdoc */
@@ -111,12 +145,6 @@ abstract class Smoky extends ContainerBuilder implements
         } catch (\LogicException $e) {
             $e->getMessage();
         }
-    }
-
-    /** @inheritdoc */
-    public function getModules()
-    {
-        return $this->modules;
     }
 
     /** @inheritdoc */
@@ -153,5 +181,69 @@ abstract class Smoky extends ContainerBuilder implements
         } catch (\Exception $e) {
             $e->getMessage();
         }
+    }
+
+    /**
+     * =================================================================================================================
+     *  SETTERS
+     * =================================================================================================================
+     */
+
+    /** @inheritdoc */
+    public function setEnvironment($environment)
+    {
+        $this->environment = $environment;
+    }
+
+    /** @inheritdoc */
+    public function setDebug($debug)
+    {
+        if ($debug) {
+            $this->setBootTime(microtime(true));
+        }
+
+        $this->debug = $debug;
+    }
+
+    /** @inheritdoc */
+    public function setBootTime($bootTime)
+    {
+        $this->bootTime = $bootTime;
+    }
+
+    /**
+     * =================================================================================================================
+     *  GETTERS
+     * =================================================================================================================
+     */
+
+    /** @inheritdoc */
+    public function getModules()
+    {
+        return $this->modules;
+    }
+
+    /** @inheritdoc */
+    public function getEnvironment()
+    {
+        return $this->environment;
+    }
+
+    /** @inheritdoc */
+    public function debugStatus()
+    {
+        return $this->debug;
+    }
+
+    /** @inheritdoc */
+    public function bootStatus()
+    {
+        return $this->booted;
+    }
+
+    /** @inheritdoc */
+    public function getBootTime()
+    {
+        return $this->bootTime;
     }
 }
