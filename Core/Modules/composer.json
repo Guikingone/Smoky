@@ -1,21 +1,28 @@
 {
   "name": "guillaume/smoky-modules",
-  "description": "The modules components of Smoky",
+  "description": "The modules component of Smoky",
   "type": "project",
   "license": "MIT",
   "authors": [
     {
-      "name": "Guikingone",
+      "name": "Guillaume Loulier || Guikingone",
       "email": "guillaume.loulier@hotmail.fr"
     }
   ],
   "autoload": {
     "psr-4": {
       "Smoky\\Modules\\": "Model/",
-      "Smoky\\Modules\\Test\\": "Tests/"
+      "Smoky\\ModulesManager\\": "ModulesManager/",
+      "Smoky\\Modules\\Events\\": "Events/",
+      "Smoky\\Modules\\Listener\\": "Listener/",
+      "Smoky\\Modules\\Test\\": "Tests/",
+      "Smoky\\Modules\\Test\\ModulesTest\\": "Tests/ModulesTest/"
     }
   },
   "require": {
+    "symfony/event-dispatcher": "^3.1"
+  },
+  "require-dev": {
     "phpunit/phpunit": "^5.5"
   }
 }

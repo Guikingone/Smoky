@@ -18,6 +18,7 @@
   "require": {
     "phpunit/phpunit": "^5.5",
     "symfony/http-kernel": "^3.1",
-    "symfony/dependency-injection": "^3.1"
+    "symfony/dependency-injection": "^3.1",
+    "symfony/event-dispatcher": "^3.1"
   }
 }
