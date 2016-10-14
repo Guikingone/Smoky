@@ -12,7 +12,6 @@
 namespace Smoky\ModulesManager;
 
 use Smoky\Modules\Events\ModulesEvents;
-use Smoky\Modules\Events\ModulesManagerEvents;
 use Smoky\Modules\Listener\ModulesListener;
 use Smoky\Modules\ModulesInterfaces;
 
@@ -29,11 +28,14 @@ abstract class ModulesManager implements
     /** @var boolean The status of the ModulesManager. */
     protected $boot;
 
+    /** @var array The different key used to throw the Modules. */
+    protected $keys = [];
+
     /** @var ModulesEvents[] The array who contains the Events stored. */
-    protected $events;
+    protected $events = [];
 
     /** @var ModulesListener[] The array who contains The Listener stored. */
-    protected $listener;
+    protected $listener = [];
 
     /** @var ModulesInterfaces[] The array who contain the Modules stored. */
     protected $modules = [];
@@ -63,6 +65,31 @@ abstract class ModulesManager implements
         }
 
         $this->setBootStatus(true);
+
+        $this->loadKeys();
+
+        try {
+            $this->loadModules();
+        } catch (\LogicException $e) {
+            $e->getMessage();
+        }
+    }
+
+    /** @inheritdoc */
+    public function loadKeys()
+    {
+        $this->keys = array();
+
+        $key = [
+            'onInit',
+            'onBoot',
+            'onCall',
+            'onLaunch'
+        ];
+
+        foreach ($key as $k) {
+            $this->keys[$k] = $k;
+        }
     }
 
     /** @inheritdoc */
@@ -75,7 +102,10 @@ abstract class ModulesManager implements
                 $name = $module->getName();
                 if (array_key_exists($name, $this->modules)) {
                     throw new \LogicException(
-                        sprintf('Impossible to register two modules with the same name : "%s"', $name)
+                        sprintf(
+                            'Impossible to register two modules with the same name : "%s"',
+                            $name
+                        )
                     );
                 }
                 $this->modules[$name] = $module;
@@ -84,7 +114,7 @@ abstract class ModulesManager implements
                 $this->addEvents();
 
                 // Add Listener for every Events.
-                //$this->addListener();
+                $this->addListeners();
             }
 
             $this->setLoadStatus(true);
@@ -102,7 +132,7 @@ abstract class ModulesManager implements
 
             foreach ($this->modules as $module) {
                 $name = $module->getName();
-                $event = new ModulesEvents($name . 'Event', null, null);
+                $event = new ModulesEvents($name . 'Event', $this->getKeys(), null);
                 if (array_key_exists($event->getName(), $this->events)) {
                     throw new \LogicException(
                         sprintf(
@@ -111,7 +141,9 @@ abstract class ModulesManager implements
                         )
                     );
                 }
-                $this->events[$event->getName()][$name] = $module;
+                foreach ($this->getKeys() as $key) {
+                    $this->events[$key][$event->getName()][$name] = $module;
+                }
             }
         } catch (\LogicException $e) {
             $e->getMessage();
@@ -119,31 +151,39 @@ abstract class ModulesManager implements
     }
 
     /** @inheritdoc */
-    public function addListener()
+    public function addListeners()
     {
         try {
             $this->listener = array();
 
             foreach ($this->modules as $module) {
-                $name = $module->getName() . 'Event';
-                foreach ($this->events as $event) {
-                    if(array_key_exists($name, $this->events)) {
-                        $listener = new ModulesListener($name . 'Listener');
-                        if (array_key_exists($listener->getName(), $this->listener)) {
-                            throw new \LogicException(
-                                sprintf(
-                                    'Impossible to register two listener with the same name,
+                $name = $module->getName();
+                $listener = new ModulesListener($name . 'Listener');
+                if (array_key_exists($listener->getName(), $this->listener)) {
+                    throw new \LogicException(
+                        sprintf(
+                            'Impossible to register two listeners with the same name,
                             already exist : "%s"', $listener->getName()
-                                )
-                            );
-                        }
-                        $this->listener[$listener->getName()] = $event;
-                    }
+                        )
+                    );
+                }
+                foreach ($this->getKeys() as $key) {
+                    $this->listener[$key][$listener->getName()][$name] = $module;
                 }
             }
         } catch (\LogicException $e) {
             $e->getMessage();
         }
+    }
+
+    public function clearEvents()
+    {
+        // TODO
+    }
+
+    public function clearListeners()
+    {
+        // TODO
     }
 
     /**
@@ -156,6 +196,12 @@ abstract class ModulesManager implements
     public function getBootStatus()
     {
         return $this->boot;
+    }
+
+    /** @inheritdoc */
+    public function getKeys()
+    {
+        return $this->keys;
     }
 
     /** @inheritdoc */

@@ -25,6 +25,11 @@ interface ModulesEventsInterfaces
     public function boot();
 
     /**
+     * Allow to stop the ModulesEvents.
+     */
+    public function stop();
+
+    /**
      * =================================================================================================================
      *  GETTERS
      * =================================================================================================================
@@ -85,10 +90,4 @@ interface ModulesEventsInterfaces
      * @param array|object|null $params
      */
     public function setParams($params);
-
-    /**
-     * @param string|integer $name
-     * @param mixed          $value
-     */
-    public function setParam($name, $value);
 }

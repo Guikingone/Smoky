@@ -18,14 +18,10 @@ namespace Smoky\Modules;
 class Module implements
       ModulesInterfaces
 {
-    /**
-     * @var string
-     */
+    /** @var string The name of the Module. */
     protected $name;
 
-    /**
-     * @var boolean
-     */
+    /** @var boolean The status of the Module. */
     protected $booted;
 
     /**
@@ -36,32 +32,24 @@ class Module implements
         $this->boot();
     }
 
-    /**
-     *  Allow to boot the Module.
-     */
+    /** @inheritdoc */
     public function boot()
     {
-        if (false === $this->booted) {
+        if (false === $this->moduleStatus()) {
             return;
         }
 
         $this->booted = true;
     }
 
-    /**
-     * Stop the module into the progression.
-     *
-     * @return $this
-     */
+    /** @inheritdoc */
     public function stop()
     {
         $this->booted = false;
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    /** @inheritdoc */
     public function getName()
     {
         $name = get_class($this);
@@ -69,9 +57,7 @@ class Module implements
         return $this->name = $name;
     }
 
-    /**
-     * @return boolean
-     */
+    /** @inheritdoc */
     public function moduleStatus()
     {
         return $this->booted;

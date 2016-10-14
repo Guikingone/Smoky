@@ -51,11 +51,21 @@ class ModulesEvents extends Event implements
     /** @inheritdoc */
     public function boot()
     {
-        if ($this->booted) {
+        if ($this->getBootStatus()) {
             return;
         }
 
         $this->setBootStatus(true);
+    }
+
+    /** @inheritdoc */
+    public function stop()
+    {
+        if (!$this->getBootStatus()) {
+            return;
+        }
+
+        $this->setBootStatus(false);
     }
 
     /**
@@ -114,7 +124,7 @@ class ModulesEvents extends Event implements
     /** @inheritdoc */
     public function setBootStatus($booted)
     {
-        $this->booted = $booted;
+        $this->booted = (boolean) $booted;
     }
 
     /** @inheritdoc */
@@ -143,16 +153,5 @@ class ModulesEvents extends Event implements
         } catch (\InvalidArgumentException $e) {
             $e->getMessage();
         }
-    }
-
-    /** @inheritdoc */
-    public function setParam($name, $value)
-    {
-        if (is_array($this->parameters) || $this->parameters instanceof \ArrayAccess) {
-            $this->parameters[$name] = $value;
-            return;
-        }
-
-        $this->parameters->{$name} = $value;
     }
 }

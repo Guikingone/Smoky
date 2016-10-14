@@ -34,11 +34,11 @@ class ModulesListener implements
     /** @inheritdoc */
     public function boot()
     {
-        if ($this->booted) {
+        if ($this->getBootStatus()) {
             return;
         }
 
-        $this->booted = true;
+        $this->setBootStatus(true);
     }
 
     /** @inheritdoc */

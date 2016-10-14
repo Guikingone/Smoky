@@ -17,12 +17,22 @@ use Smoky\Modules\Listener\ModulesListener;
 class ModulesListenerTest extends TestCase
 {
     /**
-     * Test if the Listener is boot.
+     * Test if the ModuleListener is boot.
      */
     public function testModulesListenerBoot()
     {
         $listener = new ModulesListener('onControllerEvent');
         static::assertTrue(true, $listener->getBootStatus());
         static::assertEquals('onControllerEvent', $listener->getName());
+    }
+
+    /**
+     * Test if the ModulesListeners can be stopped.
+     */
+    public function testModulesListenerStop()
+    {
+        $listener = new ModulesListener('AppModuleListener');
+        $listener->stop();
+        static::assertFalse(false, $listener->getBootStatus());
     }
 }

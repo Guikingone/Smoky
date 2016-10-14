@@ -21,8 +21,11 @@ class ModulesEventsTest extends TestCase
      */
     public function testModulesEventsBoot()
     {
-        $moduleEvents = new ModulesEvents('onAppModule', null, null);
+        $moduleEvents = new ModulesEvents('AppModuleEvent', null, null);
         static::assertTrue(true, $moduleEvents->getBootStatus());
+        static::assertEquals('AppModuleEvent', $moduleEvents->getName());
+        static::assertNull(null, $moduleEvents->getTarget());
+        static::assertNull(null, $moduleEvents->getParams());
     }
 
     /**
@@ -35,6 +38,11 @@ class ModulesEventsTest extends TestCase
         static::assertEquals('onAppModule', $modulesEvents->getName());
         static::assertContains('onInit', $modulesEvents->getTarget());
         static::assertContains('onInitStatus', $modulesEvents->getParams());
+        static::assertContains(
+            'onInitStatus', $modulesEvents->getParam(
+                'onInitStatus', $modulesEvents->getParams()
+            )
+        );
     }
 
     /**
@@ -45,5 +53,15 @@ class ModulesEventsTest extends TestCase
         $modulesEvents = new ModulesEvents('onAppModule', ['onInit'], ['onInitStatus']);
         $modulesEvents->stopPropagation();
         static::assertTrue(true, $modulesEvents->isPropagationStopped());
+    }
+
+    /**
+     * Test if the ModulesEvents can be stopped.
+     */
+    public function testModulesEventsStop()
+    {
+        $modulesEvents = new ModulesEvents('onAppModule', null, null);
+        $modulesEvents->stop();
+        static::assertFalse(false, $modulesEvents->getBootStatus());
     }
 }

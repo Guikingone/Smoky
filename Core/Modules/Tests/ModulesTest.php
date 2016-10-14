@@ -30,16 +30,6 @@ class ModulesTest extends TestCase
     }
 
     /**
-     * Test if the Module is boot and if the sta
-     */
-    public function testModuleStop()
-    {
-        $module = new Module();
-        $module->stop();
-        static::assertFalse(false, $module->moduleStatus());
-    }
-
-    /**
      * Test the boot phase of the module and the name passed to this one.
      */
     public function testModuleName()
@@ -47,5 +37,15 @@ class ModulesTest extends TestCase
         $module = new Module();
         $module->getName();
         static::assertEquals('Smoky\Modules\Module', $module->getName());
+    }
+
+    /**
+     * Test if the Module is boot and if the sta
+     */
+    public function testModuleStop()
+    {
+        $module = new Module();
+        $module->stop();
+        static::assertFalse(false, $module->moduleStatus());
     }
 }
