@@ -34,9 +34,10 @@ class ModulesManagerTest extends TestCase
      */
     public function testModulesManagerModulesLoading()
     {
-        $modulesManger = new MicroModulesManager();
-        static::assertArrayHasKey('Smoky\Modules\Test\ModulesTest\AppModule', $modulesManger->getModules());
-        static::assertTrue(true, $modulesManger->getLoadStatus());
+        $modulesManager = new MicroModulesManager();
+        static::assertArrayHasKey('AppModule', $modulesManager->getModules());
+        static::assertArrayHasKey('UserModule', $modulesManager->getModules());
+        static::assertTrue(true, $modulesManager->getLoadStatus());
     }
 
     /**
@@ -47,16 +48,10 @@ class ModulesManagerTest extends TestCase
     {
         $modulesManager = new MicroModulesManager();
         static::assertArrayHasKey(
-            'onInit', $modulesManager->getEvents()
+            'AppModuleEvent', $modulesManager->getEvents()
         );
         static::assertArrayHasKey(
-            'onBoot', $modulesManager->getEvents()
-        );
-        static::assertArrayHasKey(
-            'onCall', $modulesManager->getEvents()
-        );
-        static::assertArrayHasKey(
-            'onLaunch', $modulesManager->getEvents()
+            'UserModuleEvent', $modulesManager->getEvents()
         );
     }
 
@@ -68,16 +63,10 @@ class ModulesManagerTest extends TestCase
     {
         $modulesManager = new MicroModulesManager();
         static::assertArrayHasKey(
-            'onInit', $modulesManager->getListeners()
+            'AppModuleListener', $modulesManager->getListeners()
         );
         static::assertArrayHasKey(
-            'onBoot', $modulesManager->getListeners()
-        );
-        static::assertArrayHasKey(
-            'onCall', $modulesManager->getListeners()
-        );
-        static::assertArrayHasKey(
-            'onLaunch', $modulesManager->getListeners()
+            'UserModuleListener', $modulesManager->getListeners()
         );
     }
 }

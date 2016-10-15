@@ -9,15 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\ModulesManager;
+namespace Smoky\Modules\ModulesManager;
 
+use Smoky\Modules\Controllers\ControllerInterfaces;
 use Smoky\Modules\Events\ModulesEvents;
 use Smoky\Modules\Listener\ModulesListener;
-use Smoky\Modules\ModulesInterfaces;
+use Smoky\Modules\Model\ModulesInterfaces;
 
 /**
  * Class ModulesManager
- * @package Smoky\ModulesManager
+ * @package Smoky\Modules\ModulesManager
  */
 abstract class ModulesManager implements
                ModulesManagerInterface
@@ -113,7 +114,7 @@ abstract class ModulesManager implements
                 // Add Modules Events linked to this Modules.
                 $this->addEvents();
 
-                // Add Listener for every Events.
+                // Add Listener for every Modules.
                 $this->addListeners();
             }
 
@@ -142,7 +143,7 @@ abstract class ModulesManager implements
                     );
                 }
                 foreach ($this->getKeys() as $key) {
-                    $this->events[$key][$event->getName()][$name] = $module;
+                    $this->events[$event->getName()][$key][$name] = $module;
                 }
             }
         } catch (\LogicException $e) {
@@ -168,7 +169,7 @@ abstract class ModulesManager implements
                     );
                 }
                 foreach ($this->getKeys() as $key) {
-                    $this->listener[$key][$listener->getName()][$name] = $module;
+                    $this->listener[$listener->getName()][$key][$name] = $module;
                 }
             }
         } catch (\LogicException $e) {
@@ -237,12 +238,12 @@ abstract class ModulesManager implements
     /** @inheritdoc */
     public function setBootStatus($bootStatus)
     {
-        $this->boot = $bootStatus;
+        $this->boot = (boolean) $bootStatus;
     }
 
     /** @inheritdoc */
     public function setLoadStatus($loadStatus)
     {
-        $this->loadStatus = $loadStatus;
+        $this->loadStatus = (boolean) $loadStatus;
     }
 }

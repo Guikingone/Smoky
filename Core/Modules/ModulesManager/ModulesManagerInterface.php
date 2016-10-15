@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\ModulesManager;
+namespace Smoky\Modules\ModulesManager;
 
 use Smoky\Modules\Events\ModulesEventsInterfaces;
 use Smoky\Modules\Listener\ModulesListenerInterfaces;
-use Smoky\Modules\ModulesInterfaces;
+use Smoky\Modules\Model\ModulesInterfaces;
 
 /**
  * Interface ModulesManagerInterface
- * @package Smoky\ModulesManager
+ * @package Smoky\Modules\ModulesManager
  */
 interface ModulesManagerInterface
 {

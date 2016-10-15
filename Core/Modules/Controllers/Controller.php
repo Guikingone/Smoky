@@ -9,27 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Model;
-use Smoky\Modules\Controllers\ControllerInterfaces;
+namespace Smoky\Modules\Controllers;
 
-/**
- * Class Module
- * @package Smoky\Modules\Model
- */
-abstract class Module implements
-      ModulesInterfaces
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+class Controller implements
+      ControllerInterfaces
 {
-    /** @var string The name of the Module. */
+    /** @var string The name of the Controller. */
     protected $name;
 
-    /** @var boolean The status of the Module. */
+    /** @var boolean The status of the Controller. */
     protected $booted;
 
-    /** @var ControllerInterfaces[] The array who contains all the Controllers stored into the Module. */
-    protected $controllers = [];
-
     /**
-     * Module constructor.
+     * Controller constructor.
      */
     public function __construct()
     {
@@ -45,7 +39,7 @@ abstract class Module implements
     /** @inheritdoc */
     public function boot()
     {
-        if (false === $this->getModuleStatus()) {
+        if ($this->getBootStatus()) {
             return;
         }
 
@@ -55,22 +49,35 @@ abstract class Module implements
     /** @inheritdoc */
     public function stop()
     {
-        $this->booted = false;
-        return $this;
+        if (!$this->getBootStatus()) {
+            return;
+        }
+
+        $this->setBootStatus(false);
     }
 
     /** @inheritdoc */
-    public function loadControllers()
+    public function callView($view)
     {
-        try {
-            $this->controllers = array();
+        // TODO: Implement callView() method.
+    }
 
-            foreach ($this->getControllers() as $controller) {
+    /** @inheritdoc */
+    public function callModel($model)
+    {
+        // TODO: Implement callModel() method.
+    }
 
-            }
-        } catch (\LogicException $e) {
-            $e->getMessage();
-        }
+    /** @inheritdoc */
+    public function callRepository($repository)
+    {
+        // TODO: Implement callRepository() method.
+    }
+
+    /** @inheritdoc */
+    public function callJsonResponse($data)
+    {
+        return new JsonResponse($data);
     }
 
     /**
@@ -89,15 +96,9 @@ abstract class Module implements
     }
 
     /** @inheritdoc */
-    public function getModuleStatus()
+    public function getBootStatus()
     {
         return $this->booted;
-    }
-
-    /** @inheritdoc */
-    public function getControllers()
-    {
-        return $this->controllers;
     }
 
     /**

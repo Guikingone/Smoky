@@ -13,11 +13,7 @@ namespace Smoky\Modules\Test\ModulesTest;
 
 use Smoky\Modules\Model\Module;
 
-/**
- * Class AppModule
- * @package Smoky\Modules\Test\ModulesTest
- */
-class AppModule extends Module
+class UserModule extends Module
 {
     /** @inheritdoc */
     public function registerControllers()

@@ -12,7 +12,8 @@
 namespace Smoky\Modules\Test;
 
 use Smoky\Modules\Test\ModulesTest\AppModule;
-use Smoky\ModulesManager\ModulesManager;
+use Smoky\Modules\Test\ModulesTest\UserModule;
+use Smoky\Modules\ModulesManager\ModulesManager;
 
 /**
  * Class MicroModulesManager
@@ -25,6 +26,7 @@ class MicroModulesManager extends ModulesManager
     {
         $modules = [
             new AppModule(),
+            new UserModule(),
         ];
 
         return $modules;
