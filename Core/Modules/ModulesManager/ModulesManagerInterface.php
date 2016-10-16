@@ -11,9 +11,9 @@
 
 namespace Smoky\Modules\ModulesManager;
 
+use Smoky\Modules\Module\ModulesInterfaces;
 use Smoky\Modules\Events\ModulesEventsInterfaces;
 use Smoky\Modules\Listener\ModulesListenerInterfaces;
-use Smoky\Modules\Model\ModulesInterfaces;
 
 /**
  * Interface ModulesManagerInterface
@@ -48,7 +48,12 @@ interface ModulesManagerInterface
     /**
      * Allow to register new Modules into the ModulesManager.
      *
-     * @return ModulesInterfaces[] The array of Modules stored into the ModulesManager.
+     * [INFO]
+     *
+     * This method is called automatically by the boot() method, in order to be effective, every Module is store inside
+     * the ModulesManager->modules[] array.
+     *
+     * @return ModulesInterfaces[]    The array who contains all the Modules stored into the ModulesManager.
      */
     public function registerModules();
 

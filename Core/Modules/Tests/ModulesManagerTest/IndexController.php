@@ -9,15 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Test\ModulesTest;
+namespace Smoky\Modules\Test\ModulesManagerTest;
 
-use Smoky\Modules\Module\Module;
+use Smoky\Modules\Controllers\Controller;
 
-class UserModule extends Module
+class IndexController extends Controller
 {
-    /** @inheritdoc */
-    public function registerControllers()
-    {
-        // TODO: Implement registerControllers() method.
-    }
+
 }

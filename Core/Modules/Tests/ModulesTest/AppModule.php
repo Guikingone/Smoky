@@ -11,7 +11,8 @@
 
 namespace Smoky\Modules\Test\ModulesTest;
 
-use Smoky\Modules\Model\Module;
+use Smoky\Modules\Module\Module;
+use Smoky\Modules\Test\ModulesManagerTest\IndexController;
 
 /**
  * Class AppModule
@@ -22,6 +23,10 @@ class AppModule extends Module
     /** @inheritdoc */
     public function registerControllers()
     {
-        // TODO: Implement registerControllers() method.
+        $controllers = [
+            new IndexController()
+        ];
+
+        return $controllers;
     }
 }

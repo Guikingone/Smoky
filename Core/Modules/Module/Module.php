@@ -9,15 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Model;
+namespace Smoky\Modules\Module;
+
 use Smoky\Modules\Controllers\ControllerInterfaces;
 
 /**
  * Class Module
- * @package Smoky\Modules\Model
+ * @package Smoky\Modules\Module
  */
 abstract class Module implements
-      ModulesInterfaces
+               ModulesInterfaces
 {
     /** @var string The name of the Module. */
     protected $name;
@@ -50,23 +51,51 @@ abstract class Module implements
         }
 
         $this->setBootStatus(true);
+
+        $this->setName($this->getName());
+
+        try {
+            // Load every Controllers passed into the Module.
+            $this->loadControllers();
+        } catch (\LogicException $e) {
+            $e->getMessage();
+        }
     }
 
     /** @inheritdoc */
     public function stop()
     {
-        $this->booted = false;
-        return $this;
+        if (!$this->getModuleStatus()) {
+            return;
+        }
+
+        $this->setBootStatus(false);
     }
 
     /** @inheritdoc */
     public function loadControllers()
     {
+        $this->controllers = array();
+
         try {
-            $this->controllers = array();
-
-            foreach ($this->getControllers() as $controller) {
-
+            foreach ($this->registerControllers() as $controller) {
+                $name = $controller->getName();
+                if (!is_object($controller)) {
+                    throw new \LogicException(
+                        sprintf(
+                            'Impossible to register a Controller if he\'s not a object or a array,
+                             given : "%s"', gettype($controller)
+                        )
+                    );
+                } elseif (array_key_exists($name, $this->controllers)) {
+                    throw new \LogicException(
+                        sprintf(
+                            'Impossible to register two Controllers with the same name, 
+                             already find : "%s"', $name
+                        )
+                    );
+                }
+                $this->controllers[$name] = $controller;
             }
         } catch (\LogicException $e) {
             $e->getMessage();
@@ -105,6 +134,12 @@ abstract class Module implements
      *  SETTERS
      * =================================================================================================================
      */
+
+    /** @inheritdoc */
+    public function setName($name)
+    {
+        $this->name = (string) $name;
+    }
 
     /** @inheritdoc */
     public function setBootStatus($booted)

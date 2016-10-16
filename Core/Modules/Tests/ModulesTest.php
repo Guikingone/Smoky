@@ -27,16 +27,16 @@ class ModulesTest extends TestCase
     {
         $module = new AppModule();
         static::assertTrue(true, $module->getModuleStatus());
+        static::assertEquals('AppModule', $module->getName());
     }
 
     /**
      * Test the boot phase of the module and the name passed to this one.
      */
-    public function testModuleName()
+    public function testModulesControllersLoading()
     {
         $module = new AppModule();
-        $module->getName();
-        static::assertEquals('AppModule', $module->getName());
+        static::assertArrayHasKey('IndexController', $module->getControllers());
     }
 
     /**

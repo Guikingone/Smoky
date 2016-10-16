@@ -9,12 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Model;
+namespace Smoky\Modules\Module;
+
 use Smoky\Modules\Controllers\ControllerInterfaces;
 
 /**
  * Interface ModulesInterfaces
- * @package Smoky\Modules\ModulesManager
+ * @package Smoky\Modules\Module
  */
 interface ModulesInterfaces
 {
@@ -66,6 +67,8 @@ interface ModulesInterfaces
      *
      * This method allow to register Controllers into the array of the Module, by this method, the Module can store
      * the Controller and load him into.
+     *
+     * @return ControllerInterfaces[]    The array who contains all the Controllers.
      */
     public function registerControllers();
 
@@ -95,6 +98,11 @@ interface ModulesInterfaces
      *  SETTERS
      * =================================================================================================================
      */
+
+    /**
+     * @param string $name
+     */
+    public function setName($name);
 
     /**
      * @param boolean $booted

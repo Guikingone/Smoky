@@ -11,10 +11,9 @@
 
 namespace Smoky\Modules\ModulesManager;
 
-use Smoky\Modules\Controllers\ControllerInterfaces;
 use Smoky\Modules\Events\ModulesEvents;
 use Smoky\Modules\Listener\ModulesListener;
-use Smoky\Modules\Model\ModulesInterfaces;
+use Smoky\Modules\Module\ModulesInterfaces;
 
 /**
  * Class ModulesManager
@@ -96,12 +95,19 @@ abstract class ModulesManager implements
     /** @inheritdoc */
     public function loadModules()
     {
-        try {
-            $this->modules = array();
+        $this->modules = array();
 
+        try {
             foreach ($this->registerModules() as $module) {
                 $name = $module->getName();
-                if (array_key_exists($name, $this->modules)) {
+                if (!is_object($module)) {
+                    throw new \LogicException(
+                        sprintf(
+                            'Impossible to register a Module if he\'s not a object or a array, 
+                             given : "%s"', gettype($module)
+                        )
+                    );
+                } elseif (array_key_exists($name, $this->modules)) {
                     throw new \LogicException(
                         sprintf(
                             'Impossible to register two modules with the same name : "%s"',
@@ -110,27 +116,26 @@ abstract class ModulesManager implements
                     );
                 }
                 $this->modules[$name] = $module;
-
-                // Add Modules Events linked to this Modules.
-                $this->addEvents();
-
-                // Add Listener for every Modules.
-                $this->addListeners();
             }
-
-            $this->setLoadStatus(true);
-
         } catch (\LogicException $e) {
             $e->getMessage();
         }
+
+        // Add Events for every Modules.
+        $this->addEvents();
+
+        // Add Listener for every Modules.
+        $this->addListeners();
+
+        $this->setLoadStatus(true);
     }
 
     /** @inheritdoc */
     public function addEvents()
     {
-        try {
-            $this->events = array();
+        $this->events = array();
 
+        try {
             foreach ($this->modules as $module) {
                 $name = $module->getName();
                 $event = new ModulesEvents($name . 'Event', $this->getKeys(), null);
@@ -154,9 +159,9 @@ abstract class ModulesManager implements
     /** @inheritdoc */
     public function addListeners()
     {
-        try {
-            $this->listener = array();
+        $this->listener = array();
 
+        try {
             foreach ($this->modules as $module) {
                 $name = $module->getName();
                 $listener = new ModulesListener($name . 'Listener');

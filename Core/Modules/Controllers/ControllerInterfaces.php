@@ -16,12 +16,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 interface ControllerInterfaces
 {
     /**
+     * =================================================================================================================
+     *  CORE METHODS
+     * =================================================================================================================
+     */
+
+    /**
      * Allow to boot the Controller.
      *
      * [INFO]
      *
      * This method is call automatically by the __constructor and start the Controller, every Controller is stored
-     * inside the ModulesManager->controller[] only if he's started, in the other case, the Controller is boot and
+     * inside the Module->controller[] only if he's started, in the other case, the Controller is boot and
      * stored if the call come from a valid Request.
      */
     public function boot();
@@ -95,6 +101,12 @@ interface ControllerInterfaces
     public function callJsonResponse($data);
 
     /**
+     * =================================================================================================================
+     *  GETTERS
+     * =================================================================================================================
+     */
+
+    /**
      * @return string    The name of the Controller.
      */
     public function getName();
@@ -103,6 +115,17 @@ interface ControllerInterfaces
      * @return boolean    The status of the boot phase of the Controller.
      */
     public function getBootStatus();
+
+    /**
+     * =================================================================================================================
+     *  SETTERS
+     * =================================================================================================================
+     */
+
+    /**
+     * @param string $name
+     */
+    public function setName($name);
 
     /**
      * @param $booted

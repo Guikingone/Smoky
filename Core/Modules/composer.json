@@ -12,11 +12,12 @@
   "autoload": {
     "psr-4": {
       "Smoky\\Modules\\ModulesManager\\": "ModulesManager/",
-      "Smoky\\Modules\\Model\\": "Model/",
+      "Smoky\\Modules\\Module\\": "Module/",
       "Smoky\\Modules\\Controllers\\": "Controllers/",
       "Smoky\\Modules\\Events\\": "Events/",
       "Smoky\\Modules\\Listener\\": "Listener/",
       "Smoky\\Modules\\Test\\": "Tests/",
+      "Smoky\\Modules\\Test\\ModulesManagerTest\\": "Tests/ModulesManagerTest/",
       "Smoky\\Modules\\Test\\ModulesTest\\": "Tests/ModulesTest/"
     }
   },

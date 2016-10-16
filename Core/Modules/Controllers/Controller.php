@@ -44,6 +44,8 @@ class Controller implements
         }
 
         $this->setBootStatus(true);
+
+        $this->setName($this->getName());
     }
 
     /** @inheritdoc */
@@ -106,6 +108,12 @@ class Controller implements
      *  SETTERS
      * =================================================================================================================
      */
+
+    /** @inheritdoc */
+    public function setName($name)
+    {
+        $this->name = (string) $name;
+    }
 
     /** @inheritdoc */
     public function setBootStatus($booted)

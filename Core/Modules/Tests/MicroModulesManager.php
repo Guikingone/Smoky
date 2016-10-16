@@ -26,7 +26,7 @@ class MicroModulesManager extends ModulesManager
     {
         $modules = [
             new AppModule(),
-            new UserModule(),
+            new UserModule()
         ];
 
         return $modules;
