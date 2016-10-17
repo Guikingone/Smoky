@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Test;
+namespace Smoky\Modules\Test\ModulesTest;
 
 use PHPUnit\Framework\TestCase;
-use Smoky\Modules\Test\ModulesTest\AppModule;
 
 /**
  * Class ModulesTest
@@ -30,17 +29,14 @@ class ModulesTest extends TestCase
         static::assertEquals('AppModule', $module->getName());
     }
 
-    /**
-     * Test the boot phase of the module and the name passed to this one.
-     */
-    public function testModulesControllersLoading()
+    public function testModulesLoadControllers()
     {
         $module = new AppModule();
         static::assertArrayHasKey('IndexController', $module->getControllers());
     }
 
     /**
-     * Test if the Module is boot and if the sta
+     * Test if the Module can be stop and if the status change after the stop call.
      */
     public function testModuleStop()
     {

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Test;
+namespace Smoky\Modules\Test\ModulesManagerTest;
 
 use Smoky\Modules\Test\ModulesTest\AppModule;
 use Smoky\Modules\Test\ModulesTest\UserModule;

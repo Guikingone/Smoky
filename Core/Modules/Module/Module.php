@@ -10,7 +10,6 @@
  */
 
 namespace Smoky\Modules\Module;
-
 use Smoky\Modules\Controllers\ControllerInterfaces;
 
 /**
@@ -26,8 +25,8 @@ abstract class Module implements
     /** @var boolean The status of the Module. */
     protected $booted;
 
-    /** @var ControllerInterfaces[] The array who contains all the Controllers stored into the Module. */
-    protected $controllers = [];
+    /** @var ControllerInterfaces[] The array who contain Controllers. */
+    protected $controllers;
 
     /**
      * Module constructor.
@@ -54,12 +53,8 @@ abstract class Module implements
 
         $this->setName($this->getName());
 
-        try {
-            // Load every Controllers passed into the Module.
-            $this->loadControllers();
-        } catch (\LogicException $e) {
-            $e->getMessage();
-        }
+        // Load every Controllers into the Module.
+        $this->loadControllers();
     }
 
     /** @inheritdoc */
@@ -83,15 +78,15 @@ abstract class Module implements
                 if (!is_object($controller)) {
                     throw new \LogicException(
                         sprintf(
-                            'Impossible to register a Controller if he\'s not a object or a array,
-                             given : "%s"', gettype($controller)
+                            'Impossible to register a Controller who\'s not a object, 
+                        given : "%s"', gettype($controller)
                         )
                     );
                 } elseif (array_key_exists($name, $this->controllers)) {
                     throw new \LogicException(
                         sprintf(
                             'Impossible to register two Controllers with the same name, 
-                             already find : "%s"', $name
+                            already find : "%s"', $name
                         )
                     );
                 }

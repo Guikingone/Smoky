@@ -12,7 +12,7 @@
 namespace Smoky\Modules\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Smoky\Modules\Test\MicroModulesManager;
+use Smoky\Modules\Test\ModulesManagerTest\MicroModulesManager;
 
 class ModulesManagerTest extends TestCase
 {

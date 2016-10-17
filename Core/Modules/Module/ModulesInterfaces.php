@@ -10,7 +10,6 @@
  */
 
 namespace Smoky\Modules\Module;
-
 use Smoky\Modules\Controllers\ControllerInterfaces;
 
 /**
@@ -45,30 +44,34 @@ interface ModulesInterfaces
     public function stop();
 
     /**
-     * Allow to load every Controllers stored into the Module.
+     * Allow to load every Controller into the Module.
      *
      * [INFO]
      *
-     * This method is call automatically by the instantiation of the Module, every Controller are stored into the
-     * Modules->controllers[].
+     * This method allow to load every Controller into the Module->controller[] array, this way, the Module can keep
+     * the control over every Controller passed inside him, once the Controller is store, the Module can access into
+     * this one by searching the Controller by is name or by finding all the Controller stored.
      *
-     * @throws \LogicException    Only if two Controller with the same name are find.
+     * [WARNING]
+     *
+     * This method is call by the Module AND only by the Module.
      */
     public function loadControllers();
 
     /**
-     * Register all the Controllers into an array.
-     *
-     * [WARNING]
-     *
-     * This method should only be used by the ---Module.php class present in every Module.
+     * Allow to register the Controllers into the Module.
      *
      * [INFO]
      *
-     * This method allow to register Controllers into the array of the Module, by this method, the Module can store
-     * the Controller and load him into.
+     * This method is call by the Module inside the --Module folder, the user must save every Controller into the method
+     * if he want to store the Controller.
      *
-     * @return ControllerInterfaces[]    The array who contains all the Controllers.
+     * [WARNING]
+     *
+     * This method isn't call directly by the Module class, she's call by the ---Module class inside every ---Module
+     * folder.
+     *
+     * @return ControllerInterfaces[]    The array who contain all the Controller.
      */
     public function registerControllers();
 
@@ -89,7 +92,7 @@ interface ModulesInterfaces
     public function getModuleStatus();
 
     /**
-     * @return ControllerInterfaces[]    The Controllers stored into the Module.
+     * @return ControllerInterfaces[]
      */
     public function getControllers();
 

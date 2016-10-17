@@ -12,7 +12,7 @@
 namespace Smoky\Modules\Test;
 
 use PHPUnit\Framework\TestCase;
-use Smoky\Modules\Controllers\Controller;
+use Smoky\Modules\Test\ModulesTest\IndexController;
 
 class ModulesControllersTest extends TestCase
 {
@@ -21,7 +21,7 @@ class ModulesControllersTest extends TestCase
      */
     public function testModulesControllerBoot()
     {
-        $controller = new Controller();
+        $controller = new IndexController();
         static::assertTrue(true, $controller->getBootStatus());
     }
 }

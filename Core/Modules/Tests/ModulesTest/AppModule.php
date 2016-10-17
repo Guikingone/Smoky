@@ -12,7 +12,6 @@
 namespace Smoky\Modules\Test\ModulesTest;
 
 use Smoky\Modules\Module\Module;
-use Smoky\Modules\Test\ModulesManagerTest\IndexController;
 
 /**
  * Class AppModule
@@ -20,7 +19,6 @@ use Smoky\Modules\Test\ModulesManagerTest\IndexController;
  */
 class AppModule extends Module
 {
-    /** @inheritdoc */
     public function registerControllers()
     {
         $controllers = [

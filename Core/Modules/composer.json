@@ -18,7 +18,21 @@
       "Smoky\\Modules\\Listener\\": "Listener/",
       "Smoky\\Modules\\Test\\": "Tests/",
       "Smoky\\Modules\\Test\\ModulesManagerTest\\": "Tests/ModulesManagerTest/",
-      "Smoky\\Modules\\Test\\ModulesTest\\": "Tests/ModulesTest/"
+      "Smoky\\Modules\\Test\\ModulesTest\\": "Tests/ModulesTest/",
+      "Smoky\\Modules\\Test\\ModulesEventsTest\\": "Tests/ModulesEventsTest/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Smoky\\Modules\\ModulesManager\\": "ModulesManager/",
+      "Smoky\\Modules\\Module\\": "Module/",
+      "Smoky\\Modules\\Controllers\\": "Controllers/",
+      "Smoky\\Modules\\Events\\": "Events/",
+      "Smoky\\Modules\\Listener\\": "Listener/",
+      "Smoky\\Modules\\Test\\": "Tests/",
+      "Smoky\\Modules\\Test\\ModulesManagerTest\\": "Tests/ModulesManagerTest/",
+      "Smoky\\Modules\\Test\\ModulesTest\\": "Tests/ModulesTest/",
+      "Smoky\\Modules\\Test\\ModulesEventsTest\\": "Tests/ModulesEventsTest/"
     }
   },
   "require": {
