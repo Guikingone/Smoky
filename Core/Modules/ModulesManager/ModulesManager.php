@@ -114,6 +114,13 @@ abstract class ModulesManager implements
                             $name
                         )
                     );
+                } elseif ($module->getModuleStatus() !== true) {
+                    throw new \LogicException(
+                        sprintf(
+                            'Impossible to register a Module is he\'s not booted, 
+                            actual status : "%s"', $module->getModuleStatus()
+                        )
+                    );
                 }
                 $this->modules[$name] = $module;
             }
@@ -182,14 +189,16 @@ abstract class ModulesManager implements
         }
     }
 
+    /** @inheritdoc */
     public function clearEvents()
     {
-        // TODO
+        $this->events = [];
     }
 
+    /** @inheritdoc */
     public function clearListeners()
     {
-        // TODO
+        $this->listener = [];
     }
 
     /**

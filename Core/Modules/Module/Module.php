@@ -10,6 +10,7 @@
  */
 
 namespace Smoky\Modules\Module;
+
 use Smoky\Modules\Controllers\ControllerInterfaces;
 
 /**
@@ -87,6 +88,13 @@ abstract class Module implements
                         sprintf(
                             'Impossible to register two Controllers with the same name, 
                             already find : "%s"', $name
+                        )
+                    );
+                } elseif ($controller->getBootStatus() !== true) {
+                    throw new \LogicException(
+                        sprintf(
+                            'The Controller must be started before the injection into the Module, 
+                            actual state : "%s"', $controller->getBootStatus()
                         )
                     );
                 }

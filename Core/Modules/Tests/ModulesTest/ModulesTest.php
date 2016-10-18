@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class ModulesTest
- * @package Smoky\Modules\Test
+ * @package Smoky\Modules\Test\ModulesTest
  */
 class ModulesTest extends TestCase
 {
@@ -29,6 +29,9 @@ class ModulesTest extends TestCase
         static::assertEquals('AppModule', $module->getName());
     }
 
+    /**
+     * Test if the Controllers are loaded correctly and can be found.
+     */
     public function testModulesLoadControllers()
     {
         $module = new AppModule();

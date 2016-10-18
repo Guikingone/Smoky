@@ -2,10 +2,11 @@
 
 namespace AppModule\Controller;
 
+use Smoky\Modules\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IndexController
+class IndexController extends Controller
 {
     public function indexAction(Request $request)
     {

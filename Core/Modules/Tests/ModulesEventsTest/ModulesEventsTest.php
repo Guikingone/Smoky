@@ -9,11 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Test;
+namespace Smoky\Modules\Test\ModulesEventsTest;
 
 use PHPUnit\Framework\TestCase;
 use Smoky\Modules\Events\ModulesEvents;
 
+/**
+ * Class ModulesEventsTest
+ * @package Smoky\Modules\Test\ModulesEventsTest
+ */
 class ModulesEventsTest extends TestCase
 {
     /**

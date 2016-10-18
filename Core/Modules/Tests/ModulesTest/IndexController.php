@@ -13,6 +13,10 @@ namespace Smoky\Modules\Test\ModulesTest;
 
 use Smoky\Modules\Controllers\Controller;
 
+/**
+ * Class IndexController
+ * @package Smoky\Modules\Test\ModulesTest
+ */
 class IndexController extends Controller
 {
 

@@ -10,6 +10,7 @@
  */
 
 namespace Smoky\Modules\Module;
+
 use Smoky\Modules\Controllers\ControllerInterfaces;
 
 /**

@@ -9,11 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Test;
+namespace Smoky\Modules\Test\ModulesTest;
 
 use PHPUnit\Framework\TestCase;
-use Smoky\Modules\Test\ModulesTest\IndexController;
 
+/**
+ * Class ModulesControllersTest
+ * @package Smoky\Modules\Test\ModulesTest
+ */
 class ModulesControllersTest extends TestCase
 {
     /**
@@ -23,5 +26,6 @@ class ModulesControllersTest extends TestCase
     {
         $controller = new IndexController();
         static::assertTrue(true, $controller->getBootStatus());
+        static::assertEquals('IndexController', $controller->getName());
     }
 }

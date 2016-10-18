@@ -17,7 +17,7 @@ use Smoky\Modules\ModulesManager\ModulesManager;
 
 /**
  * Class MicroModulesManager
- * @package Smoky\Modules\Tests
+ * @package Smoky\Modules\Test\ModulesManagerTest
  */
 class MicroModulesManager extends ModulesManager
 {

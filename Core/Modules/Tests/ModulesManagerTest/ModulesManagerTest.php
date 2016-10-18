@@ -9,11 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Tests;
+namespace Smoky\Modules\Tests\ModulesManagerTest;
 
 use PHPUnit\Framework\TestCase;
 use Smoky\Modules\Test\ModulesManagerTest\MicroModulesManager;
 
+/**
+ * Class ModulesManagerTest
+ * @package Smoky\Modules\Tests\ModulesManagerTest
+ */
 class ModulesManagerTest extends TestCase
 {
     /**
@@ -66,6 +70,28 @@ class ModulesManagerTest extends TestCase
             'AppModuleListener', $modulesManager->getListeners()
         );
         static::assertArrayHasKey(
+            'UserModuleListener', $modulesManager->getListeners()
+        );
+    }
+
+    /**
+     * Test if the ModulesManager can clean his array of Events and Listeners.
+     */
+    public function testModulesManagerClear()
+    {
+        $modulesManager = new MicroModulesManager();
+        $modulesManager->clearEvents();
+        $modulesManager->clearListeners();
+        static::assertArrayNotHasKey(
+            'AppModuleEvent', $modulesManager->getEvents()
+        );
+        static::assertArrayNotHasKey(
+            'UserModuleEvent', $modulesManager->getEvents()
+        );
+        static::assertArrayNotHasKey(
+            'AppModuleListener', $modulesManager->getListeners()
+        );
+        static::assertArrayNotHasKey(
             'UserModuleListener', $modulesManager->getListeners()
         );
     }

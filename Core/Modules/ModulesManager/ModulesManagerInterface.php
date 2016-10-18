@@ -77,6 +77,16 @@ interface ModulesManagerInterface
     public function addListeners();
 
     /**
+     * Allow to clean all the Events stored into the ModulesManager.
+     */
+    public function clearEvents();
+
+    /**
+     * Allow to clean all the Listeners stored into the ModulesManager.
+     */
+    public function clearListeners();
+
+    /**
      * =================================================================================================================
      *  GETTERS
      * =================================================================================================================
