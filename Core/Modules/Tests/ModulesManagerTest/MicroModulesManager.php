@@ -24,11 +24,9 @@ class MicroModulesManager extends ModulesManager
     /** @inheritdoc */
     public function registerModules()
     {
-        $modules = [
+        return [
             new AppModule(),
             new UserModule()
         ];
-
-        return $modules;
     }
 }

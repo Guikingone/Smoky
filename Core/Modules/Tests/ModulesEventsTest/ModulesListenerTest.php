@@ -25,9 +25,9 @@ class ModulesListenerTest extends TestCase
      */
     public function testModulesListenerBoot()
     {
-        $listener = new ModulesListener('onControllerEvent');
+        $listener = new ModulesListener('UserModuleListener');
         static::assertTrue(true, $listener->getBootStatus());
-        static::assertEquals('onControllerEvent', $listener->getName());
+        static::assertEquals('UserModuleListener', $listener->getName());
     }
 
     /**

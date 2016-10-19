@@ -1,3 +1,3 @@
-# ModulesManager component for Smoky
- 
- This component is build in order to perform actions linked to the Modules, Controllers and every aspect covered by the Module.
+# Smoky | Modules component
+
+This component is the Modules component of Smoky, this one is used in order to perform simple et effective action inside the Modules.

@@ -18,10 +18,8 @@ class UserModule extends Module
     /** @inheritdoc */
     public function registerControllers()
     {
-        $controllers = [
+        return [
             new IndexController()
         ];
-
-        return $controllers;
     }
 }

@@ -15,5 +15,6 @@ require_once __DIR__ . '/../Core/Modules/autoload.php';
 
 $routes = include __DIR__ . '/../app/routes/routes.php';
 
-$smoky = new AppSmoky('dev', true, $routes);
+$smoky = new AppSmoky('prod', true, $routes);
 $smoky->launch();
+dump($smoky);

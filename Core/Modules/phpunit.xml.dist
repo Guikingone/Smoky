@@ -14,10 +14,4 @@
             <directory>./Tests/ModulesTest</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./Model</directory>
-        </whitelist>
-    </filter>
 </phpunit>

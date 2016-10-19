@@ -145,7 +145,9 @@ class ModulesEvents extends Event implements
         try {
             if (!is_array($params) && !is_object($params)) {
                 throw new \InvalidArgumentException(
-                    sprintf('Invalid type of argument, waiting for object or array, received "%s".', gettype($params)
+                    sprintf(
+                        'Invalid type of argument, waiting for object or array, 
+                        received "%s".', gettype($params)
                     )
                 );
             }

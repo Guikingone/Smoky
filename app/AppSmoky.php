@@ -7,7 +7,7 @@ class AppSmoky extends Smoky
     public function registerModules()
     {
         $modules = [
-            new \AppModule\AppModule(),
+            new \AppModule\AppModule()
         ];
 
         return $modules;

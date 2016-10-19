@@ -95,4 +95,14 @@ class ModulesManagerTest extends TestCase
             'UserModuleListener', $modulesManager->getListeners()
         );
     }
+
+    /**
+     * Test if the ModulesManager can be stopped.
+     */
+    public function testModulesManagerStop()
+    {
+        $modulesManager = new MicroModulesManager();
+        $modulesManager->stop();
+        static::assertFalse(false, $modulesManager->getBootStatus());
+    }
 }

@@ -33,6 +33,15 @@ interface ModulesManagerInterface
     public function boot();
 
     /**
+     * Allow to stop the ModulesManager and stop the Modules stored.
+     *
+     * [WARNING]
+     *
+     * This method should be called only and ONLY if the ModulesManager create a problem with a existent dependency.
+     */
+    public function stop();
+
+    /**
      * Add the different keys that allow to stored the Modules, this keys will be used in order to launch Event
      * during the execution process, every Event will be stored with the "adequate" key and the dispatcher will grab
      * the key to launch every Events.

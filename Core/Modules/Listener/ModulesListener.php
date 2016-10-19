@@ -11,6 +11,10 @@
 
 namespace Smoky\Modules\Listener;
 
+/**
+ * Class ModulesListener
+ * @package Smoky\Modules\Listener
+ */
 class ModulesListener implements
       ModulesListenerInterfaces
 {
@@ -28,6 +32,7 @@ class ModulesListener implements
     public function __construct($name)
     {
         $this->setName($name);
+
         $this->boot();
     }
 

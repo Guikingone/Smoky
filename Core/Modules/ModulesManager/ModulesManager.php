@@ -76,6 +76,20 @@ abstract class ModulesManager implements
     }
 
     /** @inheritdoc */
+    public function stop()
+    {
+        if (!$this->getBootStatus()) {
+            return;
+        }
+
+        $this->setBootStatus(false);
+
+        foreach ($this->modules as $module) {
+            $module->stop();
+        }
+    }
+
+    /** @inheritdoc */
     public function loadKeys()
     {
         $this->keys = array();

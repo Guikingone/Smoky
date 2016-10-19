@@ -21,10 +21,8 @@ class AppModule extends Module
 {
     public function registerControllers()
     {
-        $controllers = [
+        return [
             new IndexController()
         ];
-
-        return $controllers;
     }
 }

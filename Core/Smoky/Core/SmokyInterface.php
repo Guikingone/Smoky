@@ -11,9 +11,10 @@
 
 namespace Smoky\Core;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
-use Smoky\Modules\ModulesInterfaces;
+use Smoky\Modules\Module\ModulesInterfaces;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernel;
@@ -51,13 +52,6 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
      * @return float The current time since the instantiation of the framework (UNIX timestamp).
      */
     public function getBootTime();
-
-    /**
-     * Allow to get all the Modules stored into the DependencyContainer.
-     *
-     * @return ModulesInterfaces[] A array of Modules instances
-     */
-    public function getModules();
 
     /**
      * =================================================================================================================
@@ -103,6 +97,13 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
     public function shutdown();
 
     /**
+     * Allow to get the whole Container Builder and build the dependencies injection system.
+     *
+     * @return ContainerBuilder
+     */
+    public function getContainer();
+
+    /**
      * Return a array of Modules to inject into the framework.
      *
      * @return ModulesInterfaces[] A array of Modules instances
@@ -110,11 +111,9 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
     public function registerModules();
 
     /**
-     * Allow to store all the modules into the $modules array.
      *
-     * @throws \LogicException Only if tow modules with the same name are finds into the modules array.
      */
-    public function injectModules();
+    public function initializeModules();
 
     /**
      * Handle the request and return the response, once the response launched, the method terminate the process.

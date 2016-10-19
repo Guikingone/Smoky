@@ -11,7 +11,8 @@
 
 namespace Smoky\Core;
 
-use Smoky\Modules\ModulesInterfaces;
+use Smoky\Modules\Module\ModulesInterfaces;
+use Smoky\Modules\ModulesManager\ModulesManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,11 +43,14 @@ abstract class Smoky extends ContainerBuilder implements
     /** @var float The current time since the boot of the framework (using UNIX timestamp). */
     private $bootTime;
 
+    /** @var ModulesInterfaces The array who contains all the Modules loaded into the framework. */
+    protected $modules;
+
+    /** @var ModulesManager The ModulesManager. */
+    protected $modulesManager;
+
     /** @var array The array representing the dependencies of the core. */
     protected $dependencies = array();
-
-    /** @var ModulesInterfaces[] The array representing the Modules saved into the core. */
-    protected $modules;
 
     /**
      * Smoky constructor.
@@ -59,6 +63,7 @@ abstract class Smoky extends ContainerBuilder implements
     {
         $this->setEnvironment($environment);
         $this->setDebug($debug);
+        $this->boot();
 
         $this->register('context', 'Symfony\Component\Routing\RequestContext');
         $this->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')
@@ -105,12 +110,7 @@ abstract class Smoky extends ContainerBuilder implements
 
         $this->booted = true;
 
-        try {
-            // Load the modules into the array.
-            $this->injectModules();
-        } catch (\LogicException $e) {
-            $e->getMessage();
-        }
+        $this->getContainer();
     }
 
     /** @inheritdoc */
@@ -121,30 +121,20 @@ abstract class Smoky extends ContainerBuilder implements
         }
 
         $this->booted = false;
-
-        foreach ($this->getModules() as $module) {
-            $module->stop();
-        }
     }
 
     /** @inheritdoc */
-    public function injectModules()
+    public function getContainer()
     {
-        try {
-            $this->modules = array();
+        $container = new ContainerBuilder();
 
-            foreach ($this->registerModules() as $module) {
-                $name = $module->getName();
-                if (array_key_exists($name, $this->modules)) {
-                    throw new \LogicException(
-                        sprintf('Impossible to register two modules with the same name : "%s"', $name)
-                    );
-                }
-                $this->modules[$name] = $module;
-            }
-        } catch (\LogicException $e) {
-            $e->getMessage();
-        }
+        return $container;
+    }
+
+    /** @inheritdoc */
+    public function initializeModules()
+    {
+        // TODO
     }
 
     /** @inheritdoc */
@@ -216,12 +206,6 @@ abstract class Smoky extends ContainerBuilder implements
      *  GETTERS
      * =================================================================================================================
      */
-
-    /** @inheritdoc */
-    public function getModules()
-    {
-        return $this->modules;
-    }
 
     /** @inheritdoc */
     public function getEnvironment()
