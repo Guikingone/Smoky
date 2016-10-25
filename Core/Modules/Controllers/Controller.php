@@ -13,6 +13,10 @@ namespace Smoky\Modules\Controllers;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * Class Controller
+ * @package Smoky\Modules\Controllers
+ */
 class Controller implements
       ControllerInterfaces
 {

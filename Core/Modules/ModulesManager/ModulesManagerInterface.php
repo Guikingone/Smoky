@@ -67,6 +67,19 @@ interface ModulesManagerInterface
     public function registerModules();
 
     /**
+     * Allow to register a single Module into the ModulesManager.
+     *
+     * [INFO]
+     *
+     * This method should be called only if the registerModules can't be called into a clear situation, this method
+     * allow to grab the name of the Module and store this last one as a key into the Modules array, this way,
+     * the ModulesManager can add multiples Modules after the instantiation.
+     *
+     * @param string|object $name
+     */
+    public function registerModule($name);
+
+    /**
      * Allow to load the Modules into the Modules array.
      *
      * @throws \LogicException  Only when two modules with the same name are find.

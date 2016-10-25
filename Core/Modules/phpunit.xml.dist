@@ -14,4 +14,18 @@
             <directory>./Tests/ModulesTest</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>./Controllers</directory>
+            <directory>./Events</directory>
+            <directory>./Listener</directory>
+            <directory>./Modules</directory>
+            <directory>./ModulesManager</directory>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-text" target="php://stdout"/>
+    </logging>
 </phpunit>

@@ -107,6 +107,26 @@ abstract class ModulesManager implements
     }
 
     /** @inheritdoc */
+    public function registerModule($name)
+    {
+        $this->modules = array();
+
+        try {
+            if (!$name instanceof ModulesInterfaces) {
+                throw new \LogicException(
+                    sprintf(
+                        'This module isn\'t a Modules instance, be sure to extends
+                         this Modules class, find : "%s"', gettype($name)
+                    )
+                );
+            }
+
+        } catch (\LogicException $e) {
+            $e->getMessage();
+        }
+    }
+
+    /** @inheritdoc */
     public function loadModules()
     {
         $this->modules = array();

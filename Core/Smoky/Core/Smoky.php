@@ -34,23 +34,23 @@ abstract class Smoky extends ContainerBuilder implements
     /** @var string The environment used. */
     protected $environment;
 
-    /** @var bool If debug mode is allowed. */
+    /** @var boolean If debug mode is allowed. */
     protected $debug = false;
 
-    /** @var bool The status of the framework. */
+    /** @var boolean The status of the framework. */
     protected $booted = false;
 
     /** @var float The current time since the boot of the framework (using UNIX timestamp). */
     private $bootTime;
 
-    /** @var ModulesInterfaces The array who contains all the Modules loaded into the framework. */
+    /** The container of dependencyInjection, used to register and find dependencies. */
+    protected $container;
+
+    /** @var ModulesInterfaces[] The array who contains all the Modules loaded into the framework. */
     protected $modules;
 
-    /** @var ModulesManager The ModulesManager. */
+    /** @var ModulesManager The ModulesManager used to load and launch the Modules phase and dependencies. */
     protected $modulesManager;
-
-    /** @var array The array representing the dependencies of the core. */
-    protected $dependencies = array();
 
     /**
      * Smoky constructor.
@@ -110,7 +110,8 @@ abstract class Smoky extends ContainerBuilder implements
 
         $this->booted = true;
 
-        $this->getContainer();
+        $this->loadModules();
+        $this->initializeCore();
     }
 
     /** @inheritdoc */
@@ -124,15 +125,18 @@ abstract class Smoky extends ContainerBuilder implements
     }
 
     /** @inheritdoc */
-    public function getContainer()
+    public function loadModules()
     {
-        $container = new ContainerBuilder();
+        $this->modules = array();
 
-        return $container;
+        foreach ($this->registerModules() as $module) {
+            $name = $module->getName();
+            $this->modules[$name] = $module;
+        }
     }
 
     /** @inheritdoc */
-    public function initializeModules()
+    public function initializeCore()
     {
         // TODO
     }
@@ -182,7 +186,7 @@ abstract class Smoky extends ContainerBuilder implements
     /** @inheritdoc */
     public function setEnvironment($environment)
     {
-        $this->environment = $environment;
+        $this->environment = (string) $environment;
     }
 
     /** @inheritdoc */
@@ -192,13 +196,13 @@ abstract class Smoky extends ContainerBuilder implements
             $this->setBootTime(microtime(true));
         }
 
-        $this->debug = $debug;
+        $this->debug = (boolean) $debug;
     }
 
     /** @inheritdoc */
     public function setBootTime($bootTime)
     {
-        $this->bootTime = $bootTime;
+        $this->bootTime = (float) $bootTime;
     }
 
     /**
