@@ -104,14 +104,15 @@ abstract class Smoky extends ContainerBuilder implements
     /** @inheritdoc */
     public function boot()
     {
-        if ($this->booted) {
+        if ($this->bootStatus()) {
             return;
         }
 
         $this->booted = true;
 
-        $this->loadModules();
         $this->initializeCore();
+
+        $this->loadModules();
     }
 
     /** @inheritdoc */
@@ -233,5 +234,11 @@ abstract class Smoky extends ContainerBuilder implements
     public function getBootTime()
     {
         return $this->bootTime;
+    }
+
+    /** @inheritdoc */
+    public function getModules()
+    {
+        return $this->modules;
     }
 }

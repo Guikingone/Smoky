@@ -22,7 +22,9 @@ use Symfony\Component\HttpKernel\HttpKernel;
  * Interface SmokyInterface
  * @package Smoky\Core
  */
-interface SmokyInterface extends HttpKernelInterface, TerminableInterface
+interface SmokyInterface extends
+          HttpKernelInterface,
+          TerminableInterface
 {
     /**
      * =================================================================================================================
@@ -53,7 +55,12 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
     public function registerModules();
 
     /**
+     * Load the Modules.
      *
+     * [INFO]
+     *
+     * Allow to load all the Modules into Smoky, once this's done, Smoky "hydrate" the ModulesManager with the stored
+     * Modules and call this last in order to find the Modules linked to the Request.
      */
     public function loadModules();
 
@@ -122,6 +129,11 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
      * @return float The current time since the instantiation of the framework (UNIX timestamp).
      */
     public function getBootTime();
+
+    /**
+     * @return ModulesInterfaces[] The Modules stored|used into the framework and stored into the array.
+     */
+    public function getModules();
 
     /**
      * =================================================================================================================

@@ -13,6 +13,10 @@ namespace Smoky\Test;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class SmokyCoreTest
+ * @package Smoky\Test
+ */
 class SmokyCoreTest extends TestCase
 {
     /**
@@ -35,16 +39,7 @@ class SmokyCoreTest extends TestCase
         $smoky->launch();
         static::assertTrue(true, $smoky->bootStatus());
         static::assertArrayHasKey('kernel', $smoky->getDefinitions());
-    }
-
-    /**
-     * Test if the injection of a Module into the Modules array.
-     */
-    public function testSmokyModulesInjection()
-    {
-        $smoky = new MicroSmoky('dev', true);
-        $smoky->injectModules();
-        static::assertArrayHasKey('Smoky\Test\Modules\AppModule', $smoky->getModules());
+        static::assertArrayNotHasKey('Smoky\Test\Modules\AppModules', $smoky->getModules());
     }
 
     /**

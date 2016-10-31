@@ -2,7 +2,6 @@
 
 namespace AppModule;
 
-
 use AppModule\Controller\IndexController;
 use Smoky\Modules\Module\Module;
 

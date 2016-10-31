@@ -11,6 +11,10 @@
 
 namespace Smoky\Test\Modules;
 
+/**
+ * Class AppModule
+ * @package Smoky\Test\Modules
+ */
 class AppModule
 {
     /** @inheritdoc */

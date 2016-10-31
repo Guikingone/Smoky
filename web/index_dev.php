@@ -17,4 +17,3 @@ $routes = include __DIR__ . '/../app/routes/routes.php';
 
 $smoky = new AppSmoky('dev', true, $routes);
 $smoky->launch();
-dump($smoky);
