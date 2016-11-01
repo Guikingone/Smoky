@@ -29,6 +29,9 @@ abstract class Module implements
     /** @var ControllerInterfaces[] The array who contain Controllers. */
     protected $controllers;
 
+    /** @var array|object The array who contains all the services stored into the Module. */
+    protected $services;
+
     /**
      * Module constructor.
      */

@@ -112,6 +112,7 @@ abstract class Smoky extends ContainerBuilder implements
 
         $this->initializeCore();
 
+        // Load every Modules into Smoky.
         $this->loadModules();
     }
 
