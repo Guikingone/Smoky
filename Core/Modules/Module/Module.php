@@ -12,6 +12,7 @@
 namespace Smoky\Modules\Module;
 
 use Smoky\Modules\Controllers\ControllerInterfaces;
+use Zend\Config\Config;
 
 /**
  * Class Module
@@ -26,11 +27,26 @@ abstract class Module implements
     /** @var boolean The status of the Module. */
     protected $booted;
 
+    /** @var boolean The current time since the Module have boot (using UNIX Timestamp). */
+    private $bootTime;
+
+    /** @var boolean If the Module is lazy or not. */
+    protected $lazy;
+
+    /** @var array The configuration of the Module. */
+    protected $config;
+
     /** @var ControllerInterfaces[] The array who contain Controllers. */
     protected $controllers;
 
     /** @var array|object The array who contains all the services stored into the Module. */
     protected $services;
+
+    /** @var array|object The array who contains all the entities stored into the Module. */
+    protected $entities;
+
+    /** @var array|object The array who contains all the repositories stored into the Module. */
+    protected $repositories;
 
     /**
      * Module constructor.
@@ -55,7 +71,12 @@ abstract class Module implements
 
         $this->setBootStatus(true);
 
+        $this->bootTime = microtime(true);
+
         $this->setName($this->getName());
+
+        // Load the configuration of the Module.
+        $this->loadConfig();
 
         // Load every Controllers into the Module.
         $this->loadControllers();
@@ -69,6 +90,47 @@ abstract class Module implements
         }
 
         $this->setBootStatus(false);
+    }
+
+    /** @inheritdoc */
+    public function loadConfig()
+    {
+        $config = $this->getConfig();
+
+        $loader = new Config($config);
+
+        $this->config = $loader;
+
+        // Dispatch the configurations keys.
+        $this->dispatchConfig($loader);
+    }
+
+    /** @inheritdoc */
+    public function dispatchConfig($configKey)
+    {
+        // Load the 'basics' information of the Modules.
+        $this->lazy = $configKey->Lazy;
+
+        // Load every Controller, Services, etc ...
+        foreach ($configKey->Controllers as $ctlName => $controller) {
+            $class = new $controller();
+            $this->controllers[$ctlName] = $class;
+        }
+
+        foreach ($configKey->Services as $srvName => $service) {
+            $class = new $service();
+            $this->services[$srvName] = $class;
+        }
+
+        foreach ($configKey->Entity as $entName => $entity) {
+            $class = new $entity();
+            $this->entities[$entName] = $class;
+        }
+
+        foreach ($configKey->Repository as $rpName => $repository) {
+            $class = new $repository();
+            $this->repositories[$rpName] = $class;
+        }
     }
 
     /** @inheritdoc */
