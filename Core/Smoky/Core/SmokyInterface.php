@@ -48,6 +48,26 @@ interface SmokyInterface extends
     public function shutdown();
 
     /**
+     * Load the core configuration of Smoky.
+     *
+     * [INFO]
+     *
+     * This method is call automatically by the boot() method, this way, every call on the framework class load the core
+     * configuration.
+     */
+    public function getCoreConfig();
+
+    /**
+     * Allow to load the "local" configuration file and hydrate the framework with this configuration.
+     *
+     * [INFO]
+     *
+     * This method should be called by the AppSmoky file and only by this one, the file can be locate everywhere inside
+     * the app folder.
+     */
+    public function getLocalConfig();
+
+    /**
      * Return a array of Modules to inject into the framework.
      *
      * @return ModulesInterfaces[] A array of Modules instances

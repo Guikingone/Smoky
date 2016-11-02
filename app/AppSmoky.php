@@ -25,6 +25,12 @@ class AppSmoky extends Smoky
     }
 
     /** @inheritdoc */
+    public function getLocalConfig()
+    {
+        return include __DIR__ . './config/config.php';
+    }
+
+    /** @inheritdoc */
     public function getLogDir()
     {
         return dirname(__DIR__) . '/var/logs';

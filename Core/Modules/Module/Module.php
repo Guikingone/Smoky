@@ -39,13 +39,13 @@ abstract class Module implements
     /** @var ControllerInterfaces[] The array who contain Controllers. */
     protected $controllers;
 
-    /** @var array|object The array who contains all the services stored into the Module. */
+    /** @var array The array who contains all the services stored into the Module. */
     protected $services;
 
-    /** @var array|object The array who contains all the entities stored into the Module. */
+    /** @var array The array who contains all the entities stored into the Module. */
     protected $entities;
 
-    /** @var array|object The array who contains all the repositories stored into the Module. */
+    /** @var array The array who contains all the repositories stored into the Module. */
     protected $repositories;
 
     /**
@@ -69,17 +69,13 @@ abstract class Module implements
             return;
         }
 
+        $this->setName();
+
+        // Give a boot status and a boot time.
         $this->setBootStatus(true);
-
-        $this->bootTime = microtime(true);
-
-        $this->setName($this->getName());
 
         // Load the configuration of the Module.
         $this->loadConfig();
-
-        // Load every Controllers into the Module.
-        $this->loadControllers();
     }
 
     /** @inheritdoc */
@@ -102,7 +98,11 @@ abstract class Module implements
         $this->config = $loader;
 
         // Dispatch the configurations keys.
-        $this->dispatchConfig($loader);
+        try {
+            $this->dispatchConfig($loader);
+        } catch (\LogicException $e) {
+            $e->getMessage();
+        }
     }
 
     /** @inheritdoc */
@@ -112,58 +112,72 @@ abstract class Module implements
         $this->lazy = $configKey->Lazy;
 
         // Load every Controller, Services, etc ...
-        foreach ($configKey->Controllers as $ctlName => $controller) {
-            $class = new $controller();
-            $this->controllers[$ctlName] = $class;
-        }
-
-        foreach ($configKey->Services as $srvName => $service) {
-            $class = new $service();
-            $this->services[$srvName] = $class;
-        }
-
-        foreach ($configKey->Entity as $entName => $entity) {
-            $class = new $entity();
-            $this->entities[$entName] = $class;
-        }
-
-        foreach ($configKey->Repository as $rpName => $repository) {
-            $class = new $repository();
-            $this->repositories[$rpName] = $class;
-        }
-    }
-
-    /** @inheritdoc */
-    public function loadControllers()
-    {
-        $this->controllers = array();
-
         try {
-            foreach ($this->registerControllers() as $controller) {
-                $name = $controller->getName();
-                if (!is_object($controller)) {
-                    throw new \LogicException(
-                        sprintf(
-                            'Impossible to register a Controller who\'s not a object, 
-                        given : "%s"', gettype($controller)
-                        )
-                    );
-                } elseif (array_key_exists($name, $this->controllers)) {
-                    throw new \LogicException(
-                        sprintf(
-                            'Impossible to register two Controllers with the same name, 
-                            already find : "%s"', $name
-                        )
-                    );
-                } elseif ($controller->getBootStatus() !== true) {
-                    throw new \LogicException(
-                        sprintf(
-                            'The Controller must be started before the injection into the Module, 
-                            actual state : "%s"', $controller->getBootStatus()
-                        )
-                    );
+            if (isset($configKey->Controllers)) {
+                foreach ($configKey->Controllers as $ctlName => $controller) {
+                    $class = new $controller();
+                    if (array_key_exists($class->getName(), $this->config)) {
+                        throw new \LogicException(
+                            sprintf(
+                                'Impossible to register two Controllers with the same name, 
+                            already find : "%s"', $class->getName()
+                            )
+                        );
+                    } elseif ($class->getBootStatus() !== true) {
+                        throw new \LogicException(
+                            sprintf(
+                                'The Controller must be started before the injection into the Module, 
+                            actual state : "%s"', $class->getBootStatus()
+                            )
+                        );
+                    }
+                    $this->controllers[$ctlName] = $class;
                 }
-                $this->controllers[$name] = $controller;
+            }
+
+            if (isset($configKey->Services)) {
+                foreach ($configKey->Services as $srvName => $service) {
+                    $class = new $service();
+                    if (array_key_exists(get_class($class), $this->config)) {
+                        throw new \LogicException(
+                            sprintf(
+                                'Impossible to register two Services with the same name, 
+                            already find : "%s"', get_class($class)
+                            )
+                        );
+                    }
+                    $this->services[$srvName] = $class;
+                }
+            }
+
+            if (isset($configKey->Entity)) {
+                foreach ($configKey->Entity as $entName => $entity) {
+                    $class = new $entity();
+                    if (array_key_exists(get_class($class), $this->config)) {
+                        throw new \LogicException(
+                            sprintf(
+                                'Impossible to register two Entity with the same name, 
+                            already find : "%s"', get_class($class)
+                            )
+                        );
+                    }
+                    $this->entities[$entName] = $class;
+                }
+            }
+
+            if (isset($configKey->Repository)) {
+                foreach ($configKey->Repository as $rpName => $repository) {
+                    $class = new $repository();
+                    if (array_key_exists(get_class($class), $this->config)) {
+                        throw new \LogicException(
+                            sprintf(
+                                'Impossible to register two Repository with the same name, 
+                            already find : "%s"', get_class($class)
+                            )
+                        );
+                    }
+                    $this->repositories[$rpName] = $class;
+                }
             }
         } catch (\LogicException $e) {
             $e->getMessage();
@@ -186,6 +200,12 @@ abstract class Module implements
     }
 
     /** @inheritdoc */
+    public function isLazy()
+    {
+        return $this->lazy;
+    }
+
+    /** @inheritdoc */
     public function getModuleStatus()
     {
         return $this->booted;
@@ -197,6 +217,24 @@ abstract class Module implements
         return $this->controllers;
     }
 
+    /** @inheritdoc */
+    public function getServices()
+    {
+        return $this->services;
+    }
+
+    /** @inheritdoc */
+    public function getEntities()
+    {
+        return $this->entities;
+    }
+
+    /** @inheritdoc */
+    public function getRepositories()
+    {
+        return $this->repositories;
+    }
+
     /**
      * =================================================================================================================
      *  SETTERS
@@ -204,14 +242,21 @@ abstract class Module implements
      */
 
     /** @inheritdoc */
-    public function setName($name)
+    public function setName()
     {
-        $this->name = (string) $name;
+        $this->name = (string) $this->getName();
     }
 
     /** @inheritdoc */
     public function setBootStatus($booted)
     {
         $this->booted = (boolean) $booted;
+        $this->setBootTime();
+    }
+
+    /** @inheritdoc */
+    public function setBootTime()
+    {
+        $this->bootTime = microtime(true);
     }
 }

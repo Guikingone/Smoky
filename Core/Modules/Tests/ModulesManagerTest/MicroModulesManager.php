@@ -25,8 +25,7 @@ class MicroModulesManager extends ModulesManager
     public function registerModules()
     {
         return [
-            new AppModule(),
-            new UserModule()
+            new AppModule()
         ];
     }
 }

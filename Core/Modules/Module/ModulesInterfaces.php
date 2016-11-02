@@ -68,40 +68,10 @@ interface ModulesInterfaces
      * This method is called by the loadConfig() method, this way, the config key are loaded every time they change.
      *
      * @param Config $configKey    The config array used to load the configuration keys.
+     *
+     * @throws \LogicException    Only if two keys with the same 'value' are found into the Module array.
      */
     public function dispatchConfig($configKey);
-
-    /**
-     * Allow to load every Controller into the Module.
-     *
-     * [INFO]
-     *
-     * This method allow to load every Controller into the Module->controller[] array, this way, the Module can keep
-     * the control over every Controller passed inside him, once the Controller is store, the Module can access into
-     * this one by searching the Controller by is name or by finding all the Controller stored.
-     *
-     * [WARNING]
-     *
-     * This method is call by the Module AND only by the Module.
-     */
-    public function loadControllers();
-
-    /**
-     * Allow to register the Controllers into the Module.
-     *
-     * [INFO]
-     *
-     * This method is call by the Module inside the --Module folder, the user must save every Controller into the method
-     * if he want to store the Controller.
-     *
-     * [WARNING]
-     *
-     * This method isn't call directly by the Module class, she's call by the ---Module class inside every ---Module
-     * folder.
-     *
-     * @return ControllerInterfaces[]    The array who contain all the Controller.
-     */
-    public function registerControllers();
 
     /**
      * =================================================================================================================
@@ -133,14 +103,34 @@ interface ModulesInterfaces
     public function getName();
 
     /**
+     * @return boolean    If the Module is lazy.
+     */
+    public function isLazy();
+
+    /**
      * @return boolean    The status of the Module.
      */
     public function getModuleStatus();
 
     /**
-     * @return ControllerInterfaces[]
+     * @return ControllerInterfaces[]    The array of Controllers stored.
      */
     public function getControllers();
+
+    /**
+     * @return array    The Services stored into the Module.
+     */
+    public function getServices();
+
+    /**
+     * @return array    The Entities stored into the Module.
+     */
+    public function getEntities();
+
+    /**
+     * @return array    The Repositories stored into the Module.
+     */
+    public function getRepositories();
 
     /**
      * =================================================================================================================
@@ -149,12 +139,17 @@ interface ModulesInterfaces
      */
 
     /**
-     * @param string $name
+     * Set the name of the Module.
      */
-    public function setName($name);
+    public function setName();
 
     /**
-     * @param boolean $booted
+     * @param boolean $booted    The boot status of the Module.
      */
     public function setBootStatus($booted);
+
+    /**
+     * Set the bootTime using microtime() function.
+     */
+    public function setBootTime();
 }

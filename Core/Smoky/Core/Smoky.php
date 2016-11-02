@@ -127,6 +127,12 @@ abstract class Smoky extends ContainerBuilder implements
     }
 
     /** @inheritdoc */
+    public function getCoreConfig()
+    {
+        // TODO: Implement getCoreConfig() method.
+    }
+
+    /** @inheritdoc */
     public function loadModules()
     {
         $this->modules = array();

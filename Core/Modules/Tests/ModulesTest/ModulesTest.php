@@ -30,12 +30,15 @@ class ModulesTest extends TestCase
     }
 
     /**
-     * Test if the Controllers are loaded correctly and can be found.
+     * Test if the configurations are loaded correctly.
      */
-    public function testModulesLoadControllers()
+    public function testModuleLoadingConfig()
     {
         $module = new AppModule();
-        static::assertArrayHasKey('IndexController', $module->getControllers());
+        static::assertFalse(false, $module->isLazy());
+        static::assertArrayHasKey('Index', $module->getControllers());
+        static::assertArrayHasKey('Article', $module->getEntities());
+        static::assertArrayHasKey('ArticleRepository', $module->getRepositories());
     }
 
     /**

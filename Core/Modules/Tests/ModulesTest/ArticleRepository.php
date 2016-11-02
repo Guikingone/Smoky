@@ -11,15 +11,8 @@
 
 namespace Smoky\Modules\Test\ModulesTest;
 
-use Smoky\Modules\Module\Module;
 
-class UserModule extends Module
+class ArticleRepository
 {
-    /** @inheritdoc */
-    public function registerControllers()
-    {
-        return [
-            new IndexController()
-        ];
-    }
+
 }

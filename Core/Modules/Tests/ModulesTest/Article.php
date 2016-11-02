@@ -11,16 +11,7 @@
 
 namespace Smoky\Modules\Test\ModulesTest;
 
-use Smoky\Modules\Module\Module;
-
-/**
- * Class AppModule
- * @package Smoky\Modules\Test\ModulesTest
- */
-class AppModule extends Module
+class Article
 {
-    public function getConfig()
-    {
-        return include __DIR__ . './module.config.php';
-    }
+
 }

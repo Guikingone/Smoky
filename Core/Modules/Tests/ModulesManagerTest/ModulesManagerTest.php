@@ -40,7 +40,6 @@ class ModulesManagerTest extends TestCase
     {
         $modulesManager = new MicroModulesManager();
         static::assertArrayHasKey('AppModule', $modulesManager->getModules());
-        static::assertArrayHasKey('UserModule', $modulesManager->getModules());
         static::assertTrue(true, $modulesManager->getLoadStatus());
     }
 
@@ -54,9 +53,6 @@ class ModulesManagerTest extends TestCase
         static::assertArrayHasKey(
             'AppModuleEvent', $modulesManager->getEvents()
         );
-        static::assertArrayHasKey(
-            'UserModuleEvent', $modulesManager->getEvents()
-        );
     }
 
     /**
@@ -68,9 +64,6 @@ class ModulesManagerTest extends TestCase
         $modulesManager = new MicroModulesManager();
         static::assertArrayHasKey(
             'AppModuleListener', $modulesManager->getListeners()
-        );
-        static::assertArrayHasKey(
-            'UserModuleListener', $modulesManager->getListeners()
         );
     }
 
@@ -86,13 +79,7 @@ class ModulesManagerTest extends TestCase
             'AppModuleEvent', $modulesManager->getEvents()
         );
         static::assertArrayNotHasKey(
-            'UserModuleEvent', $modulesManager->getEvents()
-        );
-        static::assertArrayNotHasKey(
             'AppModuleListener', $modulesManager->getListeners()
-        );
-        static::assertArrayNotHasKey(
-            'UserModuleListener', $modulesManager->getListeners()
         );
     }
 
