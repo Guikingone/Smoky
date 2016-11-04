@@ -11,33 +11,34 @@
 
 namespace Smoky\Modules\Events;
 
-use Symfony\Component\EventDispatcher\Event;
-
 /**
  * Class ModulesEvents
  * @package Smoky\Modules\Events
  */
-class ModulesEvents extends Event implements
+class ModulesEvents implements
       ModulesEventsInterfaces
 {
     /** @var string The name of the Event. */
     protected $name;
 
-    /** @var boolean The status of the Event. */
+    /** @var bool The status of the Event. */
     protected $booted;
 
-    /** @var array|object|null The target of the Event. */
+    /** @var null|string|object The target of the Event. */
     protected $target;
 
-    /** @var array|object|null The parameters passed into the Event. */
+    /** @var array The parameters passed into the Event. */
     protected $parameters;
+
+    /** @var boolean If the propagation is stopped inside the Event. */
+    private $propagationStopped = false;
 
     /**
      * ModulesEvents constructor.
      *
      * @param string $name                  The name of the Event.
-     * @param array|object|null $target     The Event target (aka method).
-     * @param array|object|null $params     The parameters passed to this Event.
+     * @param null|string|object $target    The Event target (aka method).
+     * @param array $params                 The parameters passed to this Event.
      */
     public function __construct($name, $target, $params)
     {
@@ -99,20 +100,27 @@ class ModulesEvents extends Event implements
     }
 
     /** @inheritdoc */
-    public function getParam($name, $default = null)
+    public function getParam($name)
     {
         if (is_array($this->parameters) || $this->parameters instanceof \ArrayAccess) {
             if (!array_key_exists($name, $this->parameters)) {
-                return $default;
+                return null;
             }
 
             return $this->parameters[$name];
         }
 
         if (!isset($this->parameters->{$name})) {
-            return $default;
+            return null;
         }
+
         return $this->parameters->{$name};
+    }
+
+    /** @inheritdoc */
+    public function isPropagationStopped()
+    {
+        return $this->propagationStopped;
     }
 
     /**
@@ -143,17 +151,23 @@ class ModulesEvents extends Event implements
     public function setParams($params)
     {
         try {
-            if (!is_array($params) && !is_object($params)) {
+            if (!is_array($params)) {
                 throw new \InvalidArgumentException(
                     sprintf(
-                        'Invalid type of argument, waiting for object or array, 
+                        'Invalid type of argument, waiting for array, 
                         received "%s".', gettype($params)
                     )
                 );
             }
-            $this->parameters = $params;
+            $this->parameters = (array) $params;
         } catch (\InvalidArgumentException $e) {
             $e->getMessage();
         }
+    }
+
+    /** @inheritdoc */
+    public function stopPropagation($flag)
+    {
+        $this->propagationStopped = (boolean) $flag;
     }
 }

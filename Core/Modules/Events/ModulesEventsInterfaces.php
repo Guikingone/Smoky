@@ -11,8 +11,6 @@
 
 namespace Smoky\Modules\Events;
 
-use ArrayAccess;
-
 /**
  * Interface ModulesEventsInterfaces
  * @package Smoky\Modules\Events
@@ -46,12 +44,12 @@ interface ModulesEventsInterfaces
     public function getName();
 
     /**
-     * @return array|object|null
+     * @return null|string|object
      */
     public function getTarget();
 
     /**
-     * @return array|object|ArrayAccess
+     * @return array
      */
     public function getParams();
 
@@ -59,11 +57,15 @@ interface ModulesEventsInterfaces
      * Allow to get a single parameters.
      *
      * @param string $name      The name of the parameters.
-     * @param null $default     Default value if the parameters isn't find.
      *
      * @return mixed
      */
-    public function getParam($name, $default = null);
+    public function getParam($name);
+
+    /**
+     * @return bool
+     */
+    public function isPropagationStopped();
 
     /**
      * =================================================================================================================
@@ -78,16 +80,27 @@ interface ModulesEventsInterfaces
 
     /**
      * @param string $name
+     *
+     * @return void
      */
     public function setName($name);
 
     /**
-     * @param array|object|null $target
+     * @param null|string|object $target
+     *
+     * @return void
      */
     public function setTarget($target);
 
     /**
-     * @param array|object|null $params
+     * @param array $params
+     *
+     * @return void
      */
     public function setParams($params);
+
+    /**
+     * @param bool $flag
+     */
+    public function stopPropagation($flag);
 }

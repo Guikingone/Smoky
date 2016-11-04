@@ -17,6 +17,7 @@ use Smoky\Modules\Module\ModulesInterfaces;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernel;
+use Zend\Config\Config;
 
 /**
  * Interface SmokyInterface
@@ -55,7 +56,7 @@ interface SmokyInterface extends
      * This method is call automatically by the boot() method, this way, every call on the framework class load the core
      * configuration.
      */
-    public function getCoreConfig();
+    public function loadConfig();
 
     /**
      * Allow to load the "local" configuration file and hydrate the framework with this configuration.
@@ -66,6 +67,17 @@ interface SmokyInterface extends
      * the app folder.
      */
     public function getLocalConfig();
+
+    /**
+     * Load every config keys and dispatch them into the framework.
+     *
+     * [INFO]
+     *
+     * This method is called automatically by the loadConfig() method.
+     *
+     * @param Config $configKey
+     */
+    public function dispatchConfig($configKey);
 
     /**
      * Return a array of Modules to inject into the framework.

@@ -12,13 +12,13 @@
 namespace Smoky\Core;
 
 use Smoky\Modules\Module\ModulesInterfaces;
-use Smoky\Modules\ModulesManager\ModulesManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Routing\RouteCollection;
+use Zend\Config\Config;
 
 /**
  * The Smoky framework class.
@@ -43,14 +43,11 @@ abstract class Smoky extends ContainerBuilder implements
     /** @var float The current time since the boot of the framework (using UNIX timestamp). */
     private $bootTime;
 
-    /** The container of dependencyInjection, used to register and find dependencies. */
-    protected $container;
+    /** @var array The configuration of Smoky, used in order to store keys. */
+    protected $config;
 
     /** @var ModulesInterfaces[] The array who contains all the Modules loaded into the framework. */
     protected $modules;
-
-    /** @var ModulesManager The ModulesManager used to load and launch the Modules phase and dependencies. */
-    protected $modulesManager;
 
     /**
      * Smoky constructor.
@@ -110,7 +107,8 @@ abstract class Smoky extends ContainerBuilder implements
 
         $this->booted = true;
 
-        $this->initializeCore();
+        // Load the configurations keys.
+        $this->loadConfig();
 
         // Load every Modules into Smoky.
         $this->loadModules();
@@ -127,9 +125,26 @@ abstract class Smoky extends ContainerBuilder implements
     }
 
     /** @inheritdoc */
-    public function getCoreConfig()
+    public function loadConfig()
     {
-        // TODO: Implement getCoreConfig() method.
+        $config = $this->getLocalConfig();
+
+        $loader = new Config($config);
+
+        $this->config = $loader;
+
+        // Dispatch the config through the framework.
+        $this->dispatchConfig($loader);
+    }
+
+    /** @inheritdoc */
+    public function dispatchConfig($configKey)
+    {
+        if (isset($configKey->Core)) {
+            foreach ($configKey->Core as $class => $cl) {
+                $this->register($class, $cl);
+            }
+        }
     }
 
     /** @inheritdoc */

@@ -28,4 +28,14 @@ class ModulesControllersTest extends TestCase
         static::assertTrue(true, $controller->getBootStatus());
         static::assertEquals('IndexController', $controller->getName());
     }
+
+    /**
+     * Test if the Controller can be stop.
+     */
+    public function testModulesControllerStop()
+    {
+        $controller = new IndexController();
+        $controller->stop();
+        static::assertFalse(false, $controller->getBootStatus());
+    }
 }

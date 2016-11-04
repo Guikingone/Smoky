@@ -27,7 +27,7 @@ class AppSmoky extends Smoky
     /** @inheritdoc */
     public function getLocalConfig()
     {
-        return include __DIR__ . './config/config.php';
+        return include __DIR__ . './config/smoky.config.php';
     }
 
     /** @inheritdoc */

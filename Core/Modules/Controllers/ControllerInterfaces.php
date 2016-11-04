@@ -123,9 +123,9 @@ interface ControllerInterfaces
      */
 
     /**
-     * @param string $name
+     * Set the name of the Controller.
      */
-    public function setName($name);
+    public function setName();
 
     /**
      * @param $booted
