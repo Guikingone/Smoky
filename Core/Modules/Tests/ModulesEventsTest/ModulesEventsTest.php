@@ -13,6 +13,7 @@ namespace Smoky\Modules\Test\ModulesEventsTest;
 
 use PHPUnit\Framework\TestCase;
 use Smoky\Modules\Events\ModulesEvents;
+use Smoky\Modules\Test\ModulesTest\AppModule;
 
 /**
  * Class ModulesEventsTest
@@ -32,6 +33,10 @@ class ModulesEventsTest extends TestCase
         static::assertContains('onInit', $moduleEvents->getParams());
         static::assertContains('onBoot', $moduleEvents->getParams());
         static::assertFalse(false, $moduleEvents->isPropagationStopped());
+
+        // Test again in order to find if the status return is correct.
+        $moduleEvents->boot();
+        static::assertTrue(true, $moduleEvents->getBootStatus());
     }
 
     /**
@@ -44,10 +49,26 @@ class ModulesEventsTest extends TestCase
         static::assertEquals('onAppModule', $modulesEvents->getName());
         static::assertContains('onBoot', $modulesEvents->getTarget());
         static::assertContains('onInitStatus', $modulesEvents->getParams());
+        static::assertNull(null, $modulesEvents->getParam('onInitStatus'));
     }
 
     /**
-     * Test if the ModulesEvents can stop is propagation.
+     * Test if the parameters array can contains a key and the values linked.
+     */
+    public function testModulesEventParameters()
+    {
+        $modulesEvents = new ModulesEvents('AppModuleEvent', 'onCall', ['onCall' => 'onCall']);
+        static::assertArrayHasKey('onCall', $modulesEvents->getParams());
+        static::assertContains('onCall', $modulesEvents->getParam('onCall'));
+
+        // Test if object can be passed through the parameters array.
+        $modulesEvents->setParams([AppModule::class => AppModule::class]);
+        static::assertArrayHasKey(AppModule::class, $modulesEvents->getParams());
+        static::assertContains(AppModule::class, $modulesEvents->getParam(AppModule::class));
+    }
+
+    /**
+     * Test if the ModulesEvents can stop his propagation.
      */
     public function testModulesEventsStopPropagation()
     {
@@ -62,6 +83,10 @@ class ModulesEventsTest extends TestCase
     public function testModulesEventsStop()
     {
         $modulesEvents = new ModulesEvents('onAppModule', null, null);
+        $modulesEvents->stop();
+        static::assertFalse(false, $modulesEvents->getBootStatus());
+
+        // Test again in order to find if the status return is correct.
         $modulesEvents->stop();
         static::assertFalse(false, $modulesEvents->getBootStatus());
     }

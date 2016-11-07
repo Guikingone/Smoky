@@ -9,9 +9,6 @@
     <testsuites>
         <testsuite name="Smoky Modules component test suite">
             <directory>./Tests</directory>
-            <directory>./Tests/ModulesManagerTest</directory>
-            <directory>./Tests/ModulesEventsTest</directory>
-            <directory>./Tests/ModulesTest</directory>
         </testsuite>
     </testsuites>
 

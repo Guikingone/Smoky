@@ -28,6 +28,10 @@ class ModulesListenerTest extends TestCase
         $listener = new ModulesListener('UserModuleListener');
         static::assertTrue(true, $listener->getBootStatus());
         static::assertEquals('UserModuleListener', $listener->getName());
+
+        // Test again in order to find if the status return is correct.
+        $listener->boot();
+        static::assertTrue(true, $listener->getBootStatus());
     }
 
     /**
@@ -36,6 +40,10 @@ class ModulesListenerTest extends TestCase
     public function testModulesListenerStop()
     {
         $listener = new ModulesListener('AppModuleListener');
+        $listener->stop();
+        static::assertFalse(false, $listener->getBootStatus());
+
+        // Test again in order to find if the status return is correct.
         $listener->stop();
         static::assertFalse(false, $listener->getBootStatus());
     }

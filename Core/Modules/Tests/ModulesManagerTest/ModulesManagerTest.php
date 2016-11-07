@@ -31,6 +31,10 @@ class ModulesManagerTest extends TestCase
         static::assertArrayHasKey('onBoot', $modulesManager->getKeys());
         static::assertArrayHasKey('onCall', $modulesManager->getKeys());
         static::assertArrayHasKey('onLaunch', $modulesManager->getKeys());
+
+        // Test again in order to find if the status return is correct.
+        $modulesManager->boot();
+        static::assertTrue(true, $modulesManager->getBootStatus());
     }
 
     /**
@@ -53,6 +57,8 @@ class ModulesManagerTest extends TestCase
         static::assertArrayHasKey(
             'AppModuleEvent', $modulesManager->getEvents()
         );
+        $modulesManager->addEvents();
+        static::assertArrayHasKey('AppModuleEvent', $modulesManager->getEvents());
     }
 
     /**
@@ -65,6 +71,7 @@ class ModulesManagerTest extends TestCase
         static::assertArrayHasKey(
             'AppModuleListener', $modulesManager->getListeners()
         );
+        $modulesManager->addListeners();
     }
 
     /**
@@ -89,6 +96,11 @@ class ModulesManagerTest extends TestCase
     public function testModulesManagerStop()
     {
         $modulesManager = new MicroModulesManager();
+        $modulesManager->stop();
+        static::assertFalse(false, $modulesManager->getBootStatus());
+
+
+        // Test again in order to find if the status return is correct.
         $modulesManager->stop();
         static::assertFalse(false, $modulesManager->getBootStatus());
     }

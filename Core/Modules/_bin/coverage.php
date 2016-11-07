@@ -10,9 +10,6 @@
  */
 
 $datetime = new DateTime();
-$hours = ($datetime->format('H') + 1).'h';
-$minutes = $datetime->format('i').'min';
-$date = $datetime->format('d-m-Y');
-$path = $date.'_'.$hours.$minutes;
+$path = $datetime->format('d-m-Y').'_'.($datetime->format('H')+1).'h'.$datetime->format('i').'min';
 
 exec('phpunit --coverage-html ./Coverage/'.$path);

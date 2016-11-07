@@ -257,6 +257,6 @@ abstract class Module implements
     /** @inheritdoc */
     public function setBootTime()
     {
-        $this->bootTime = microtime(true);
+        $this->bootTime = (float) microtime(true);
     }
 }

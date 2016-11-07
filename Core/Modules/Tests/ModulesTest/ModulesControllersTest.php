@@ -27,6 +27,10 @@ class ModulesControllersTest extends TestCase
         $controller = new IndexController();
         static::assertTrue(true, $controller->getBootStatus());
         static::assertEquals('IndexController', $controller->getName());
+
+        // Test again in order to find if the status return is correct.
+        $controller->boot();
+        static::assertTrue(true, $controller->getBootStatus());
     }
 
     /**
@@ -35,6 +39,10 @@ class ModulesControllersTest extends TestCase
     public function testModulesControllerStop()
     {
         $controller = new IndexController();
+        $controller->stop();
+        static::assertFalse(false, $controller->getBootStatus());
+
+        // Test again in order to find if the status return is correct.
         $controller->stop();
         static::assertFalse(false, $controller->getBootStatus());
     }

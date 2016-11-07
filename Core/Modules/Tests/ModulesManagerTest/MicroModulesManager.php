@@ -12,7 +12,6 @@
 namespace Smoky\Modules\Test\ModulesManagerTest;
 
 use Smoky\Modules\Test\ModulesTest\AppModule;
-use Smoky\Modules\Test\ModulesTest\UserModule;
 use Smoky\Modules\ModulesManager\ModulesManager;
 
 /**
@@ -25,6 +24,8 @@ class MicroModulesManager extends ModulesManager
     public function registerModules()
     {
         return [
+            new AppModule(),
+            // Just for test purpose.
             new AppModule()
         ];
     }
