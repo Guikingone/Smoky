@@ -9,15 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Test\ModulesTest;
-
-use Smoky\Modules\Controllers\Controller;
+namespace Smoky\Provider;
 
 /**
- * Class IndexController
- * @package Smoky\Modules\Test\ModulesTest
+ * Class HttpKernelProvider
+ * @package Smoky\Provider
  */
-class IndexController extends Controller
+class HttpKernelProvider extends Provider
 {
 
 }

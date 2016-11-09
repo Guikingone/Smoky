@@ -4,9 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9a895328aa467856ffa887a591d9cd06",
-    "content-hash": "fc2fc8b5f12fc9615ccddabce55d3ae6",
+    "hash": "3b2bdc6cf7fe7342e1f3eba8b4c3a26d",
+    "content-hash": "9abc601dbdf4f5588af4c21810c0ef4f",
     "packages": [
+        {
+            "name": "guillaume/smoky-modules",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Smoky-php/Smoky-Modules.git",
+                "reference": "85a4996c59a2d790c7a281d8ed2ce3e7f5926ebb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Smoky-php/Smoky-Modules/zipball/85a4996c59a2d790c7a281d8ed2ce3e7f5926ebb",
+                "reference": "85a4996c59a2d790c7a281d8ed2ce3e7f5926ebb",
+                "shasum": ""
+            },
+            "require": {
+                "zendframework/zend-config": "^2.6"
+            },
+            "require-dev": {
+                "phpunit/php-code-coverage": "^4.0",
+                "phpunit/phpunit": "^5.5",
+                "symfony/var-dumper": "^3.1"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Smoky\\Modules\\ModulesManager\\": "ModulesManager/",
+                    "Smoky\\Modules\\Module\\": "Module/",
+                    "Smoky\\Modules\\Controllers\\": "Controllers/",
+                    "Smoky\\Modules\\Events\\": "Events/",
+                    "Smoky\\Modules\\Listener\\": "Listener/",
+                    "Smoky\\Modules\\Test\\": "Tests/",
+                    "Smoky\\Modules\\Test\\ModulesManagerTest\\": "Tests/ModulesManagerTest/",
+                    "Smoky\\Modules\\Test\\ModulesTest\\": "Tests/ModulesTest/",
+                    "Smoky\\Modules\\Test\\ModulesEventsTest\\": "Tests/ModulesEventsTest/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guillaume Loulier || Guikingone",
+                    "email": "guillaume.loulier@hotmail.fr"
+                },
+                {
+                    "name": "Aurelien Morvan",
+                    "email": "contact@aurelien-morvan.fr"
+                }
+            ],
+            "description": "The modules component of Smoky",
+            "time": "2016-11-09 14:13:48"
+        },
         {
             "name": "psr/log",
             "version": "1.0.2",
@@ -1895,7 +1948,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "guillaume/smoky-modules": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

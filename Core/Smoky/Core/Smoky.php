@@ -62,6 +62,10 @@ abstract class Smoky extends ContainerBuilder implements
         $this->setDebug($debug);
         $this->boot();
 
+        // Load the providers
+        $this->register('Http', 'Smoky\Provider\HttpKernelProvider');
+        $this->register('Modules', 'Smoky\Provider\ModulesManagerProvider');
+
         $this->register('context', 'Symfony\Component\Routing\RequestContext');
         $this->register('matcher', 'Symfony\Component\Routing\Matcher\UrlMatcher')
             ->setArguments(array($route, new Reference('context')));

@@ -12,6 +12,7 @@
   "autoload": {
     "psr-4": {
       "Smoky\\Core\\": "Core/",
+      "Smoky\\Provider\\": "Provider/",
       "Smoky\\Test\\": "Tests/"
     }
   },
@@ -24,6 +25,7 @@
     "symfony/http-kernel": "^3.1",
     "symfony/dependency-injection": "^3.1",
     "symfony/event-dispatcher": "^3.1",
-    "zendframework/zend-config": "^2.6"
+    "zendframework/zend-config": "^2.6",
+    "guillaume/smoky-modules": "dev-master"
   }
 }

@@ -9,10 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Modules\Test\ModulesTest;
+namespace Smoky\Provider;
 
-
-class ArticleRepository
+/**
+ * Class ModulesManagerProvider
+ * @package Smoky\Provider
+ */
+class ModulesManagerProvider extends Provider
 {
 
 }

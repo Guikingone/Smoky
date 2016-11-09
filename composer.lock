@@ -4,9 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "81eec09953412dc8e62c1d6d50c12ce5",
-    "content-hash": "e6df83ae85e8824c1e28eea988193c68",
+    "hash": "14b033d11e182502485f676e91555043",
+    "content-hash": "000fbb6670b370531656925b6349c5b9",
     "packages": [
+        {
+            "name": "guillaume/smoky-modules",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Smoky-php/Smoky-Modules.git",
+                "reference": "85a4996c59a2d790c7a281d8ed2ce3e7f5926ebb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Smoky-php/Smoky-Modules/zipball/85a4996c59a2d790c7a281d8ed2ce3e7f5926ebb",
+                "reference": "85a4996c59a2d790c7a281d8ed2ce3e7f5926ebb",
+                "shasum": ""
+            },
+            "require": {
+                "zendframework/zend-config": "^2.6"
+            },
+            "require-dev": {
+                "phpunit/php-code-coverage": "^4.0",
+                "phpunit/phpunit": "^5.5",
+                "symfony/var-dumper": "^3.1"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Smoky\\Modules\\ModulesManager\\": "ModulesManager/",
+                    "Smoky\\Modules\\Module\\": "Module/",
+                    "Smoky\\Modules\\Controllers\\": "Controllers/",
+                    "Smoky\\Modules\\Events\\": "Events/",
+                    "Smoky\\Modules\\Listener\\": "Listener/",
+                    "Smoky\\Modules\\Test\\": "Tests/",
+                    "Smoky\\Modules\\Test\\ModulesManagerTest\\": "Tests/ModulesManagerTest/",
+                    "Smoky\\Modules\\Test\\ModulesTest\\": "Tests/ModulesTest/",
+                    "Smoky\\Modules\\Test\\ModulesEventsTest\\": "Tests/ModulesEventsTest/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guillaume Loulier || Guikingone",
+                    "email": "guillaume.loulier@hotmail.fr"
+                },
+                {
+                    "name": "Aurelien Morvan",
+                    "email": "contact@aurelien-morvan.fr"
+                }
+            ],
+            "description": "The modules component of Smoky",
+            "time": "2016-11-09 14:13:48"
+        },
         {
             "name": "psr/log",
             "version": "1.0.2",
@@ -499,6 +552,107 @@
                 "url"
             ],
             "time": "2016-08-16 14:58:24"
+        },
+        {
+            "name": "zendframework/zend-config",
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-config.git",
+                "reference": "2920e877a9f6dca9fa8f6bd3b1ffc2e19bb1e30d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-config/zipball/2920e877a9f6dca9fa8f6bd3b1ffc2e19bb1e30d",
+                "reference": "2920e877a9f6dca9fa8f6bd3b1ffc2e19bb1e30d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "zendframework/zend-stdlib": "^2.7 || ^3.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "1.7.*",
+                "phpunit/phpunit": "~4.0",
+                "zendframework/zend-filter": "^2.6",
+                "zendframework/zend-i18n": "^2.5",
+                "zendframework/zend-json": "^2.6.1",
+                "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3"
+            },
+            "suggest": {
+                "zendframework/zend-filter": "Zend\\Filter component",
+                "zendframework/zend-i18n": "Zend\\I18n component",
+                "zendframework/zend-json": "Zend\\Json to use the Json reader or writer classes",
+                "zendframework/zend-servicemanager": "Zend\\ServiceManager for use with the Config Factory to retrieve reader and writer instances"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev",
+                    "dev-develop": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Config\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "provides a nested object property based user interface for accessing this configuration data within application code",
+            "homepage": "https://github.com/zendframework/zend-config",
+            "keywords": [
+                "config",
+                "zf2"
+            ],
+            "time": "2016-02-04 23:01:10"
+        },
+        {
+            "name": "zendframework/zend-stdlib",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-stdlib.git",
+                "reference": "debedcfc373a293f9250cc9aa03cf121428c8e78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/debedcfc373a293f9250cc9aa03cf121428c8e78",
+                "reference": "debedcfc373a293f9250cc9aa03cf121428c8e78",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "^2.6.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev",
+                    "dev-develop": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Stdlib\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "homepage": "https://github.com/zendframework/zend-stdlib",
+            "keywords": [
+                "stdlib",
+                "zf2"
+            ],
+            "time": "2016-09-13 14:38:50"
         }
     ],
     "packages-dev": [
@@ -1806,7 +1960,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "guillaume/smoky-modules": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
