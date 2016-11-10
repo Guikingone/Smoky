@@ -23,4 +23,10 @@ class MicroSmoky extends Smoky
           new AppModule()
         );
     }
+
+    /** @inheritdoc */
+    public function getLocalConfig()
+    {
+        return include __DIR__ . '/config/smoky.config.php';
+    }
 }

@@ -9,13 +9,6 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Provider;
+return [
 
-/**
- * Class ModulesManagerProvider
- * @package Smoky\Provider
- */
-class ModulesManagerProvider extends Provider
-{
-
-}
+];

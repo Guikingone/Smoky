@@ -9,13 +9,6 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Provider;
+$autoload = require __DIR__ . '/vendor/autoload.php';
 
-/**
- * Class HttpKernelProvider
- * @package Smoky\Provider
- */
-class HttpKernelProvider extends Provider
-{
-
-}
+return $autoload;
