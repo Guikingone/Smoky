@@ -14,16 +14,15 @@ namespace Smoky\Providers;
 use Smoky\Core\Providers\Provider;
 
 /**
- * Class ModulesManagerProvider
- * @package Smoky\Providers
+ * Class ModulesManagerProvider.
  */
 class ModulesManagerProvider extends Provider
 {
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function loadClasses()
     {
         return [
-          'ModulesManager' => \Smoky\Modules\ModulesManager\ModulesManager::class
+          'ModulesManager' => \Smoky\Modules\ModulesManager\ModulesManager::class,
         ];
     }
 }

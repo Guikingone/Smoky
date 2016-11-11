@@ -16,17 +16,17 @@ use Smoky\Test\Modules\AppModule;
 
 class MicroSmoky extends Smoky
 {
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function registerModules()
     {
         return array(
-          new AppModule()
+          new AppModule(),
         );
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function getLocalConfig()
     {
-        return include __DIR__ . '/config/smoky.config.php';
+        return include __DIR__.'/config/smoky.config.php';
     }
 }

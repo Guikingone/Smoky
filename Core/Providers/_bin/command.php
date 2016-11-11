@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+require __DIR__.'./../autoload.php';
 
-require_once __DIR__.'/../app/autoload.php';
-require_once __DIR__.'/../Core/Smoky/autoload.php';
+use Symfony\Component\Console\Application;
 
-$routes = include __DIR__.'/../app/routes/routes.php';
+$application = new Application();
 
-$smoky = new AppSmoky('dev', true, $routes);
-$smoky->launch();
-dump($smoky);
+$application->add(new \Smoky\Core\Providers\Command\CreateProviderCommand());
+
+$application->run();

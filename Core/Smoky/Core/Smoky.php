@@ -22,11 +22,8 @@ use Zend\Config\Config;
 
 /**
  * The Smoky framework class.
- *
- * @package Smoky\Core
  */
-abstract class Smoky extends ContainerBuilder implements
-               SmokyInterface
+abstract class Smoky extends ContainerBuilder implements SmokyInterface
 {
     /** The version of the framework. */
     const VERSION = '1.0';
@@ -34,10 +31,10 @@ abstract class Smoky extends ContainerBuilder implements
     /** @var string The environment used. */
     protected $environment;
 
-    /** @var boolean If debug mode is allowed. */
+    /** @var bool If debug mode is allowed. */
     protected $debug = false;
 
-    /** @var boolean The status of the framework. */
+    /** @var bool The status of the framework. */
     protected $booted = false;
 
     /** @var float The current time since the boot of the framework (using UNIX timestamp). */
@@ -52,8 +49,8 @@ abstract class Smoky extends ContainerBuilder implements
     /**
      * Smoky constructor.
      *
-     * @param string               $environment The environment used.
-     * @param boolean              $debug       Allow to debug or not.
+     * @param string               $environment The environment used
+     * @param bool                 $debug       Allow to debug or not
      * @param RouteCollection|null $route
      */
     public function __construct($environment, $debug, RouteCollection $route = null)
@@ -87,7 +84,7 @@ abstract class Smoky extends ContainerBuilder implements
                 new Reference('dispatcher'),
                 new Reference('controller_resolver'),
                 new Reference('request_stack'),
-                new Reference('argument_resolver')
+                new Reference('argument_resolver'),
             ));
 
         parent::__construct();
@@ -95,14 +92,14 @@ abstract class Smoky extends ContainerBuilder implements
 
     /**
      * =================================================================================================================
-     *  CORE METHODS
+     *  CORE METHODS.
      *
      *  This methods gave access to the core of Smoky, be sure to have full knowledge about what the methods does into
      *  the framework process.
      * =================================================================================================================
      */
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function boot()
     {
         if ($this->bootStatus()) {
@@ -118,7 +115,7 @@ abstract class Smoky extends ContainerBuilder implements
         $this->loadModules();
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function shutdown()
     {
         if ($this->booted = false || $this->environment = 'prod') {
@@ -128,7 +125,7 @@ abstract class Smoky extends ContainerBuilder implements
         $this->booted = false;
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function loadConfig()
     {
         $config = $this->getLocalConfig();
@@ -141,7 +138,7 @@ abstract class Smoky extends ContainerBuilder implements
         $this->dispatchConfig($loader);
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function dispatchConfig($configKey)
     {
         if (isset($configKey->Core)) {
@@ -151,7 +148,7 @@ abstract class Smoky extends ContainerBuilder implements
         }
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function loadModules()
     {
         $this->modules = array();
@@ -162,13 +159,13 @@ abstract class Smoky extends ContainerBuilder implements
         }
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function initializeCore()
     {
         // TODO
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function handle(Request $request, $type = HttpKernel::MASTER_REQUEST, $catch = true)
     {
         if (!$this->booted) {
@@ -178,7 +175,7 @@ abstract class Smoky extends ContainerBuilder implements
         return $this->get('kernel')->handle($request, $type, $catch);
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function terminate(Request $request, Response $response)
     {
         try {
@@ -188,7 +185,7 @@ abstract class Smoky extends ContainerBuilder implements
         }
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function launch(Request $request = null)
     {
         try {
@@ -207,26 +204,26 @@ abstract class Smoky extends ContainerBuilder implements
     /**
      * =================================================================================================================
      *  SETTERS
-     * =================================================================================================================
+     * =================================================================================================================.
      */
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function setEnvironment($environment)
     {
         $this->environment = (string) $environment;
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function setDebug($debug)
     {
         if ($debug) {
             $this->setBootTime(microtime(true));
         }
 
-        $this->debug = (boolean) $debug;
+        $this->debug = (bool) $debug;
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function setBootTime($bootTime)
     {
         $this->bootTime = (float) $bootTime;
@@ -235,34 +232,34 @@ abstract class Smoky extends ContainerBuilder implements
     /**
      * =================================================================================================================
      *  GETTERS
-     * =================================================================================================================
+     * =================================================================================================================.
      */
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function getEnvironment()
     {
         return $this->environment;
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function debugStatus()
     {
         return $this->debug;
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function bootStatus()
     {
         return $this->booted;
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function getBootTime()
     {
         return $this->bootTime;
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function getModules()
     {
         return $this->modules;

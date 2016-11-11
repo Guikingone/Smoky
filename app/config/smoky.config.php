@@ -8,6 +8,6 @@ return [
         'Request_Stack' => \Symfony\Component\HttpFoundation\RequestStack::class,
         'Controller_resolver' => \Symfony\Component\HttpKernel\Controller\ControllerResolver::class,
         'Argument_Resolver' => \Symfony\Component\HttpKernel\Controller\ArgumentResolver::class,
-        'Dispatcher' => \Symfony\Component\EventDispatcher\EventDispatcher::class
-    ]
+        'Dispatcher' => \Symfony\Component\EventDispatcher\EventDispatcher::class,
+    ],
 ];

@@ -12,11 +12,9 @@
 namespace Smoky\Core\Providers\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Smoky\Providers\ModulesManagerProvider;
 
 /**
- * Class ProvidersTest
- * @package Smoky\Core\Providers\Tests
+ * Class ProvidersTest.
  */
 class ProvidersTest extends TestCase
 {
@@ -25,7 +23,34 @@ class ProvidersTest extends TestCase
      */
     public function testProviderBoot()
     {
-        $modulesProvider = new ModulesManagerProvider();
+        $modulesProvider = new MailerProvider();
+
+        // Test if the ModulesProviders can boot twice.
+        $modulesProvider->boot();
+        static::assertTrue(true, $modulesProvider->getBootStatus());
         dump($modulesProvider);
+    }
+
+    /**
+     * Test if the Provider can contains the key passed within the loadClasses() method.
+     */
+    public function testProviderContains()
+    {
+        $provider = new MailerProvider();
+        static::assertArrayHasKey('Mailer', $provider->getClasses());
+    }
+
+    /**
+     * Test if the Provider can be stopped.
+     */
+    public function testProviderStop()
+    {
+        $provider = new MailerProvider();
+        $provider->stop();
+        static::assertFalse(false, $provider->getBootStatus());
+
+        // Test if the Provider can stop twice in a row.
+        $provider->stop();
+        static::assertFalse(false, $provider->getBootStatus());
     }
 }

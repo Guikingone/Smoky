@@ -12,27 +12,27 @@
 use Smoky\Core\Smoky;
 
 /**
- * Class AppSmoky
+ * Class AppSmoky.
  */
 class AppSmoky extends Smoky
 {
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function registerModules()
     {
         return [
-            new \AppModule\AppModule()
+            new \AppModule\AppModule(),
         ];
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function getLocalConfig()
     {
-        return include __DIR__ . './config/smoky.config.php';
+        return include __DIR__.'./config/smoky.config.php';
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function getLogDir()
     {
-        return dirname(__DIR__) . '/var/logs';
+        return dirname(__DIR__).'/var/logs';
     }
 }

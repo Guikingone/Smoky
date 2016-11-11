@@ -1,2 +1,8 @@
 # Dependencies
 vendor/
+
+# Coverage
+Coverage/
+
+# Temp
+*.tmp

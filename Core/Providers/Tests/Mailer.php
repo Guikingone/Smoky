@@ -9,18 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Test\Modules;
+namespace Smoky\Core\Providers\Tests;
 
 /**
- * Class AppModule.
+ * Class Mailer.
  */
-class AppModule
+class Mailer
 {
-    /** {@inheritdoc} */
-    public function getName()
-    {
-        $name = get_class($this);
+    /** @var bool If the mail is send or not. */
+    protected $send;
 
-        return $this->name = $name;
+    /** Allow to send a new email using the data passed. */
+    public function send()
+    {
+        // Just for test purpose !
     }
 }

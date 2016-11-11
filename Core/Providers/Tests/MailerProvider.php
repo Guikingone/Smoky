@@ -9,18 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Smoky\Test\Modules;
+namespace Smoky\Core\Providers\Tests;
+
+use Smoky\Core\Providers\Provider;
 
 /**
- * Class AppModule.
+ * Class MailerProvider.
  */
-class AppModule
+class MailerProvider extends Provider
 {
     /** {@inheritdoc} */
-    public function getName()
+    public function loadClasses()
     {
-        $name = get_class($this);
-
-        return $this->name = $name;
+        return [
+            'Mailer' => new Mailer(),
+        ];
     }
 }

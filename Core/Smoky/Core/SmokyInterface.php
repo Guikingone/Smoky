@@ -20,17 +20,14 @@ use Symfony\Component\HttpKernel\HttpKernel;
 use Zend\Config\Config;
 
 /**
- * Interface SmokyInterface
- * @package Smoky\Core
+ * Interface SmokyInterface.
  */
-interface SmokyInterface extends
-          HttpKernelInterface,
-          TerminableInterface
+interface SmokyInterface extends HttpKernelInterface, TerminableInterface
 {
     /**
      * =================================================================================================================
      *  CORE METHODS
-     * =================================================================================================================
+     * =================================================================================================================.
      */
 
     /**
@@ -121,56 +118,56 @@ interface SmokyInterface extends
     /**
      * =================================================================================================================
      *  INHERIT METHODS
-     * =================================================================================================================
+     * =================================================================================================================.
      */
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle(Request $request, $type = HttpKernel::MASTER_REQUEST, $catch = true);
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function terminate(Request $request, Response $response);
 
     /**
      * =================================================================================================================
      *  GETTERS
-     * =================================================================================================================
+     * =================================================================================================================.
      */
 
     /**
-     * @return string The environment used by the framework.
+     * @return string The environment used by the framework
      */
     public function getEnvironment();
 
     /**
-     * @return boolean The status of debug mode.
+     * @return bool The status of debug mode
      */
     public function debugStatus();
 
     /**
      * Return the status of the framework.
      *
-     * @return boolean
+     * @return bool
      */
     public function bootStatus();
 
     /**
-     * @return float The current time since the instantiation of the framework (UNIX timestamp).
+     * @return float The current time since the instantiation of the framework (UNIX timestamp)
      */
     public function getBootTime();
 
     /**
-     * @return ModulesInterfaces[] The Modules stored|used into the framework and stored into the array.
+     * @return ModulesInterfaces[] The Modules stored|used into the framework and stored into the array
      */
     public function getModules();
 
     /**
      * =================================================================================================================
      *  SETTERS
-     * =================================================================================================================
+     * =================================================================================================================.
      */
 
     /**
@@ -178,9 +175,8 @@ interface SmokyInterface extends
      */
     public function setEnvironment($environment);
 
-
     /**
-     * @param boolean $debug
+     * @param bool $debug
      */
     public function setDebug($debug);
 

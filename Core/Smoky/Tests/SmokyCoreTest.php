@@ -14,8 +14,7 @@ namespace Smoky\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class SmokyCoreTest
- * @package Smoky\Test
+ * Class SmokyCoreTest.
  */
 class SmokyCoreTest extends TestCase
 {

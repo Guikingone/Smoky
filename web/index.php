@@ -10,9 +10,9 @@
  */
 
 require_once __DIR__.'/../app/autoload.php';
-require_once __DIR__ . '/../Core/Smoky/autoload.php';
+require_once __DIR__.'/../Core/Smoky/autoload.php';
 
-$routes = include __DIR__ . '/../app/routes/routes.php';
+$routes = include __DIR__.'/../app/routes/routes.php';
 
 $smoky = new AppSmoky('prod', false, $routes);
 $smoky->launch();

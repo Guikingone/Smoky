@@ -9,6 +9,6 @@
  * file that was distributed with this source code.
  */
 
-$autoload = require __DIR__ . '/vendor/autoload.php';
+$autoload = require __DIR__.'/vendor/autoload.php';
 
 return $autoload;

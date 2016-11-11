@@ -14,12 +14,11 @@ namespace Smoky\Providers;
 use Smoky\Core\Providers\Provider;
 
 /**
- * Class HttpKernelProvider
- * @package Smoky\Providers
+ * Class HttpKernelProvider.
  */
 class HttpKernelProvider extends Provider
 {
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function loadClasses()
     {
         // TODO: Implement loadClasses() method.

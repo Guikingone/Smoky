@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smoky-php/Smoky-Modules.git",
-                "reference": "85a4996c59a2d790c7a281d8ed2ce3e7f5926ebb"
+                "reference": "f34a833e88d6344737fef01f7ff49d6a45acecec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smoky-php/Smoky-Modules/zipball/85a4996c59a2d790c7a281d8ed2ce3e7f5926ebb",
-                "reference": "85a4996c59a2d790c7a281d8ed2ce3e7f5926ebb",
+                "url": "https://api.github.com/repos/Smoky-php/Smoky-Modules/zipball/f34a833e88d6344737fef01f7ff49d6a45acecec",
+                "reference": "f34a833e88d6344737fef01f7ff49d6a45acecec",
                 "shasum": ""
             },
             "require": {
@@ -58,7 +58,7 @@
                 }
             ],
             "description": "The modules component of Smoky",
-            "time": "2016-11-09 14:13:48"
+            "time": "2016-11-11 14:35:35"
         },
         {
             "name": "psr/log",
