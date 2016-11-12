@@ -23,21 +23,22 @@ class ProvidersTest extends TestCase
      */
     public function testProviderBoot()
     {
-        $modulesProvider = new MailerProvider();
+        $provider = new MailerProvider();
+        static::assertArrayHasKey('Mailer', $provider->getClasses());
 
         // Test if the ModulesProviders can boot twice.
-        $modulesProvider->boot();
-        static::assertTrue(true, $modulesProvider->getBootStatus());
-        dump($modulesProvider);
+        $provider->boot();
+        static::assertTrue(true, $provider->getBootStatus());
     }
 
     /**
-     * Test if the Provider can contains the key passed within the loadClasses() method.
+     * Test if the Provider can return a class using string.
      */
-    public function testProviderContains()
+    public function testProviderOutput()
     {
         $provider = new MailerProvider();
-        static::assertArrayHasKey('Mailer', $provider->getClasses());
+        $class = $provider->get('Mailer');
+        dump($class);
     }
 
     /**

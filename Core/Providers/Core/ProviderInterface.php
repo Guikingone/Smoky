@@ -73,7 +73,7 @@ interface ProviderInterface
      * if you use a object, be sure to check if this one is already
      * store into the array !
      *
-     * @param string|object $name
+     * @param string $name
      */
     public function get($name);
 

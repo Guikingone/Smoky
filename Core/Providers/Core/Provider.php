@@ -67,8 +67,10 @@ abstract class Provider implements ProviderInterface
     /** {@inheritdoc} */
     public function register($name, $class)
     {
+        $this->classes = [];
+
         try {
-            if (!is_string($name) || !is_object($class)) {
+            if (!is_string($name) && !is_object($class)) {
                 throw new \LogicException(
                     sprintf(
                         'Impossible to register a new class if this last one
@@ -79,7 +81,7 @@ abstract class Provider implements ProviderInterface
                 );
             }
 
-            if (isset($this->classes[$name])) {
+            if (array_key_exists($name, $this->classes)) {
                 throw new \LogicException(
                     sprintf(
                         'Impossible to register two class with the same name, 
@@ -97,7 +99,28 @@ abstract class Provider implements ProviderInterface
     /** {@inheritdoc} */
     public function get($name)
     {
-        // TODO
+        try {
+            if (!is_string($name) || !is_object($name)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'The name parameters MUST be a string or a object,
+                        given : "%s"', gettype($name)
+                    )
+                );
+            }
+
+            if (!array_key_exists($name, $this->classes)) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'This key don\'t exist into the provider array'
+                    )
+                );
+            }
+        } catch (\InvalidArgumentException $e) {
+            $e->getMessage();
+        } finally {
+            return $this->classes[$name];
+        }
     }
 
     /**

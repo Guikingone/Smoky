@@ -11,9 +11,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Smoky\\Core\\Providers\\Command\\": "Command/",
       "Smoky\\Core\\Providers\\": "Core/",
-      "Smoky\\Providers\\": "Providers/",
       "Smoky\\Core\\Providers\\Tests\\": "Tests/"
     }
   },
