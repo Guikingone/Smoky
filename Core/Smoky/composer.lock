@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3b2bdc6cf7fe7342e1f3eba8b4c3a26d",
-    "content-hash": "9abc601dbdf4f5588af4c21810c0ef4f",
+    "hash": "bb976e56ee853d27c39d3feddbe2a5a9",
+    "content-hash": "61829a863f75c10ca7c1f64b90cf5c3a",
     "packages": [
         {
             "name": "guillaume/smoky-modules",
@@ -59,6 +59,45 @@
             ],
             "description": "The modules component of Smoky",
             "time": "2016-11-09 14:13:48"
+        },
+        {
+            "name": "guillaume/smoky-providers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Smoky-php/Smoky-Providers.git",
+                "reference": "dcf8f16e7059ed4f7c67cdc32f5be721d0ea8c44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Smoky-php/Smoky-Providers/zipball/dcf8f16e7059ed4f7c67cdc32f5be721d0ea8c44",
+                "reference": "dcf8f16e7059ed4f7c67cdc32f5be721d0ea8c44",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/php-code-coverage": "^4.0",
+                "phpunit/phpunit": "^5.5",
+                "symfony/var-dumper": "^3.1"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Smoky\\Core\\Providers\\": "Core/",
+                    "Smoky\\Core\\Providers\\Tests\\": "Tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guillaume Loulier",
+                    "email": "guillaume.loulier@hotmail.fr"
+                }
+            ],
+            "description": "The providers component of Smoky",
+            "time": "2016-11-16 16:33:01"
         },
         {
             "name": "psr/log",
@@ -1949,7 +1988,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "guillaume/smoky-modules": 20
+        "guillaume/smoky-modules": 20,
+        "guillaume/smoky-providers": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -26,6 +26,7 @@
     "symfony/dependency-injection": "^3.1",
     "symfony/event-dispatcher": "^3.1",
     "zendframework/zend-config": "^2.6",
-    "guillaume/smoky-modules": "dev-master"
+    "guillaume/smoky-modules": "dev-master",
+    "guillaume/smoky-providers": "dev-master"
   }
 }
