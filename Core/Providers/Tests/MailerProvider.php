@@ -23,9 +23,6 @@ class MailerProvider extends Provider
     {
         return [
             'Mailer' => new Mailer(),
-
-            // Just for test purpose.
-            'Mailer' => new Mailer()
         ];
     }
 }

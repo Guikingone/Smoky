@@ -32,13 +32,13 @@ class ProvidersTest extends TestCase
     }
 
     /**
-     * Test if the Provider can return a class using string.
+     * Test if the Provider can return a class using string research.
      */
     public function testProviderOutput()
     {
         $provider = new MailerProvider();
         $class = $provider->get('Mailer');
-        dump($class);
+        static::assertClassHasAttribute('send', get_class($class));
     }
 
     /**

@@ -15,7 +15,6 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./Core</directory>
-            <directory suffix=".php">./Providers</directory>
         </whitelist>
     </filter>
 
