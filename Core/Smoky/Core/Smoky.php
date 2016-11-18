@@ -12,7 +12,9 @@
 namespace Smoky\Core;
 
 use Smoky\Modules\Module\ModulesInterfaces;
+use Smoky\Modules\ModulesManager\ModulesManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,13 +31,16 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
     const VERSION = '1.0';
 
     /** @var string The environment used. */
-    protected $environment;
+    private $environment;
 
     /** @var bool If debug mode is allowed. */
-    protected $debug = false;
+    private $debug = false;
+
+    /** @var string The locale language used. */
+    private $locale;
 
     /** @var bool The status of the framework. */
-    protected $booted = false;
+    private $booted = false;
 
     /** @var float The current time since the boot of the framework (using UNIX timestamp). */
     private $bootTime;
@@ -43,8 +48,14 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
     /** @var array The configuration of Smoky, used in order to store keys. */
     protected $config;
 
+    /** @var array The providers stored into the framework, every one is accessible. */
+    private $providers;
+
     /** @var ModulesInterfaces[] The array who contains all the Modules loaded into the framework. */
     protected $modules;
+
+    /** @var ContainerBuilder Contains the ContainerBuilder build during the boot process of the framework. */
+    protected $container;
 
     /**
      * Smoky constructor.
@@ -58,6 +69,8 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
         $this->setEnvironment($environment);
         $this->setDebug($debug);
         $this->boot();
+
+        $this->register('ModulesManager', 'Smoky\Provider\ModulesManagerProvider');
 
         // Load the providers
         $this->register('Http', 'Smoky\Provider\HttpKernelProvider');
@@ -108,17 +121,14 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
 
         $this->booted = true;
 
-        // Load the configurations keys.
+        // Load the configuration.
         $this->loadConfig();
-
-        // Load every Modules into Smoky.
-        $this->loadModules();
     }
 
     /** {@inheritdoc} */
     public function shutdown()
     {
-        if ($this->booted = false || $this->environment = 'prod') {
+        if ($this->bootStatus() === false || $this->getEnvironment() === 'prod') {
             return;
         }
 
@@ -136,11 +146,39 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
 
         // Dispatch the config through the framework.
         $this->dispatchConfig($loader);
+
+        // Initialize the core of Smoky.
+        $this->initializeCore();
     }
 
     /** {@inheritdoc} */
     public function dispatchConfig($configKey)
     {
+        if (isset($configKey->Locale)) {
+            $this->locale = $configKey->Locale;
+        }
+
+        try {
+            $this->modules = [];
+
+            if (isset($configKey->Modules)) {
+                foreach ($configKey->Modules as $module => $value) {
+                    $class = new $value();
+                    if (!$class instanceof ModulesInterfaces) {
+                        throw new \LogicException(
+                            sprintf(
+                                'Impossible to register module who\'s not a 
+                                ModulesInterfaces instance, given : "%s"', gettype($class)
+                            )
+                        );
+                    }
+                    $this->modules[$class->getName()] = $class;
+                }
+            }
+        } catch (\LogicException $e) {
+            $e->getMessage();
+        }
+
         if (isset($configKey->Core)) {
             foreach ($configKey->Core as $class => $cl) {
                 $this->register($class, $cl);
@@ -149,26 +187,59 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
     }
 
     /** {@inheritdoc} */
-    public function loadModules()
+    public function getCoreParameters()
     {
-        $this->modules = array();
+        $modules = [];
 
-        foreach ($this->registerModules() as $module) {
-            $name = $module->getName();
-            $this->modules[$name] = $module;
+        foreach ($this->modules as $module => $value) {
+            $modules[$module] = get_class($value);
         }
+
+        return [
+            'core.version' => static::VERSION,
+            'core.environment' => $this->getEnvironment(),
+            'core.debug' => $this->debugStatus(),
+            'core.locale' => $this->locale,
+            'core.booted' => $this->bootStatus(),
+            'core.modules' => $modules
+        ];
     }
 
     /** {@inheritdoc} */
     public function initializeCore()
     {
-        // TODO
+        if ($this->getCoreParameters()) {
+            $container = new ContainerBuilder(new ParameterBag($this->getCoreParameters()));
+        }
+
+        foreach ($this->modules as $module) {
+            $container->register($module->getName(), $module);
+
+            if ($module instanceof ModulesManager) {
+                $class = new \ReflectionObject($module);
+                $container->register("$class", $class);
+            }
+        }
+
+        $this->container = $container;
+    }
+
+    /** {@inheritdoc} */
+    public function loadProviders()
+    {
+        $this->providers = [];
+
+        try {
+
+        } catch (\LogicException $e) {
+            $e->getMessage();
+        }
     }
 
     /** {@inheritdoc} */
     public function handle(Request $request, $type = HttpKernel::MASTER_REQUEST, $catch = true)
     {
-        if (!$this->booted) {
+        if (!$this->bootStatus()) {
             $this->boot();
         }
 
@@ -202,9 +273,9 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
     }
 
     /**
-     * =================================================================================================================
+     * ==========================================================================
      *  SETTERS
-     * =================================================================================================================.
+     * ==========================================================================.
      */
 
     /** {@inheritdoc} */
@@ -230,9 +301,9 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
     }
 
     /**
-     * =================================================================================================================
+     * ==========================================================================
      *  GETTERS
-     * =================================================================================================================.
+     * ==========================================================================.
      */
 
     /** {@inheritdoc} */

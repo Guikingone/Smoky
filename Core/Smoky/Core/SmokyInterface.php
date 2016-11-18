@@ -25,9 +25,9 @@ use Zend\Config\Config;
 interface SmokyInterface extends HttpKernelInterface, TerminableInterface
 {
     /**
-     * =================================================================================================================
+     * ==========================================================================
      *  CORE METHODS
-     * =================================================================================================================.
+     * ==========================================================================.
      */
 
     /**
@@ -50,8 +50,8 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
      *
      * [INFO]
      *
-     * This method is call automatically by the boot() method, this way, every call on the framework class load the core
-     * configuration.
+     * This method is call automatically by the boot() method, this way,
+     * every call on the framework class load the core configuration.
      */
     public function loadConfig();
 
@@ -60,8 +60,8 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
      *
      * [INFO]
      *
-     * This method should be called by the AppSmoky file and only by this one, the file can be locate everywhere inside
-     * the app folder.
+     * This method should be called by the AppSmoky file and only by this one,
+     * the file can be locate everywhere inside the app folder.
      */
     public function getLocalConfig();
 
@@ -77,35 +77,45 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
     public function dispatchConfig($configKey);
 
     /**
-     * Return a array of Modules to inject into the framework.
-     *
-     * @return ModulesInterfaces[] A array of Modules instances
-     */
-    public function registerModules();
-
-    /**
-     * Load the Modules.
+     * Returns the core parameters.
      *
      * [INFO]
      *
-     * Allow to load all the Modules into Smoky, once this's done, Smoky "hydrate" the ModulesManager with the stored
-     * Modules and call this last in order to find the Modules linked to the Request.
+     * This method is used to store the different keys used by the framework,
+     * this way, you can access to the whole array of keys through the entire
+     * application.
+     *
+     * [WARNING]
+     *
+     * This method is called automatically by the Smoky class during the boot phase,
+     * this way, every parameters stored into the array are available at any time.
+     *
+     * @return array The array of parameters stored into the core
      */
-    public function loadModules();
+    public function getCoreParameters();
 
     /**
      * Initialize the core classes.
      *
      * [INFO]
      *
-     * This method is called automatically by the boot phase of Smoky, this way, the Container and the ModulesManager
-     * are loaded when the Request is grabbed. In order to be effective, this method is called only once, if the "cache"
+     * This method is called automatically by the boot phase of Smoky, this way,
+     * the Container and the ModulesManager are loaded when the Request is grabbed.
+     * In order to be effective, this method is called only once, if the "cache"
      * isn't fresh, the classes are already loaded and the Core don't reload all the classes.
      */
     public function initializeCore();
 
     /**
-     * Handle the request and return the response, once the response launched, the method terminate the process.
+     * Load the providers into the $providers array.
+     *
+     * [INFO]
+     */
+    public function loadProviders();
+
+    /**
+     * Handle the request and return the response, once the response launched,
+     * the method terminate the process.
      *
      * @param Request|null $request
      *
@@ -116,9 +126,9 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
     public function launch(Request $request = null);
 
     /**
-     * =================================================================================================================
+     * ==========================================================================
      *  INHERIT METHODS
-     * =================================================================================================================.
+     * ==========================================================================.
      */
 
     /**
@@ -132,9 +142,9 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
     public function terminate(Request $request, Response $response);
 
     /**
-     * =================================================================================================================
+     * ==========================================================================
      *  GETTERS
-     * =================================================================================================================.
+     * ==========================================================================.
      */
 
     /**
@@ -165,9 +175,9 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
     public function getModules();
 
     /**
-     * =================================================================================================================
+     * ==========================================================================
      *  SETTERS
-     * =================================================================================================================.
+     * ==========================================================================.
      */
 
     /**

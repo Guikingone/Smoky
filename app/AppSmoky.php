@@ -17,14 +17,6 @@ use Smoky\Core\Smoky;
 class AppSmoky extends Smoky
 {
     /** {@inheritdoc} */
-    public function registerModules()
-    {
-        return [
-            new \AppModule\AppModule(),
-        ];
-    }
-
-    /** {@inheritdoc} */
     public function getLocalConfig()
     {
         return include __DIR__.'./config/smoky.config.php';
