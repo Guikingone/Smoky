@@ -21,6 +21,8 @@ use Zend\Config\Config;
 
 /**
  * Interface SmokyInterface.
+ *
+ * @author Guillaume Loulier <contact@guillaumeloulier.fr>
  */
 interface SmokyInterface extends HttpKernelInterface, TerminableInterface
 {
@@ -31,17 +33,35 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
      */
 
     /**
-     * Allow to boot the framework and inject the Modules with the instance.
+     * Allow to boot the framework.
+     *
+     * [INFO]
+     *
+     * This method call different "sub-methods" :
+     * -> loadConfig()
+     * -> dispatchConfig()
+     * -> initializeCore()
+     *
+     * [WARNING]
+     *
+     * This method is called automatically by the "instantiation" of the framework.
      */
     public function boot();
 
     /**
      * Shutdown the framework and clear the modules saved.
      *
+     * [INFO]
+     *
+     * This method change the boot status of the framework,
+     * in order to be effective, you MUST use this method assuming different case.
+     *
      * [WARNING]
      *
-     * The method must be called only if a Request is not find or not launch || if the application
-     * isn't running in 'prod' mode.
+     * The method must be called only :
+     * || If a Request is not find or not launch
+     * || If the application isn't running in 'prod' mode
+     * || If the framework isn't "boot".
      */
     public function shutdown();
 
@@ -56,7 +76,8 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
     public function loadConfig();
 
     /**
-     * Allow to load the "local" configuration file and hydrate the framework with this configuration.
+     * Allow to load the "local" configuration file and
+     * hydrate the framework with this configuration.
      *
      * [INFO]
      *
@@ -110,6 +131,15 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
      * Load the providers into the $providers array.
      *
      * [INFO]
+     *
+     * This method is used in order to load every providers into the framework,
+     * every providers MUST implement the Provider class and be boot.
+     *
+     * In order to access the providers, you MUST use the getProvider method.
+     *
+     * [WARNING]
+     *
+     * This method is called ONLY once and MUST be linked to the boot method.
      */
     public function loadProviders();
 
@@ -158,9 +188,7 @@ interface SmokyInterface extends HttpKernelInterface, TerminableInterface
     public function debugStatus();
 
     /**
-     * Return the status of the framework.
-     *
-     * @return bool
+     * @return bool The framework boot status
      */
     public function bootStatus();
 

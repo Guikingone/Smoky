@@ -15,6 +15,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class SmokyCoreTest.
+ *
+ * @author Guillaume Loulier <contact@guillaumeloulier.fr>
  */
 class SmokyCoreTest extends TestCase
 {

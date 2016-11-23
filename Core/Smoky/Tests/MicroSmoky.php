@@ -14,6 +14,11 @@ namespace Smoky\Test;
 use Smoky\Core\Smoky;
 use Smoky\Test\Modules\AppModule;
 
+/**
+ * Class MicroSmoky
+ *
+ * @author Guillaume Loulier <contact@guillaumeloulier.fr>
+ */
 class MicroSmoky extends Smoky
 {
     /** {@inheritdoc} */

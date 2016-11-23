@@ -6,7 +6,7 @@ return [
         // Framework key
     ],
     'Modules' => [
-        'AppModule' => \AppModule\AppModule::class
+        'AppModule' => \AppModule\AppModule::class,
     ],
 
     // Add your own configuration !

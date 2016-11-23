@@ -13,6 +13,8 @@ namespace Smoky\Test\Modules;
 
 /**
  * Class AppModule.
+ *
+ * @author Guillaume Loulier <contact@guillaumeloulier.fr>
  */
 class AppModule
 {
