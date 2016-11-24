@@ -203,7 +203,7 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
             'core.debug' => $this->debugStatus(),
             'core.locale' => $this->locale,
             'core.booted' => $this->bootStatus(),
-            'core.modules' => $modules,
+            'core.modules' => $modules
         ];
     }
 

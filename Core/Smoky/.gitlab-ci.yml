@@ -1,0 +1,21 @@
+stages:
+ - test
+ - build
+ - performances
+ - deploy
+
+test:
+ stage: test
+ script: echo 'Hello World'
+
+build:
+ stage: build
+ script: echo 'Building the future'
+
+performances:
+ stage: performances
+ script: echo 'Testing the speedy phase !'
+
+deploy:
+ stage: deploy
+ script: echo 'You\'re the choosen one !'
