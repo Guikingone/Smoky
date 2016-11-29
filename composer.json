@@ -27,6 +27,7 @@
         "symfony/http-kernel": "^3.1",
         "symfony/dependency-injection": "^3.1",
         "guillaume/smoky-modules": "dev-master",
-        "guillaume/smoky-providers": "dev-master"
+        "guillaume/smoky-providers": "dev-master",
+        "roave/security-advisories": "dev-master"
     }
 }

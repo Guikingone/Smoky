@@ -226,6 +226,15 @@ abstract class Smoky extends ContainerBuilder implements SmokyInterface
         $this->container = $container;
     }
 
+    public function initializeModulesManager()
+    {
+        if (!$this->getCoreParameters()) {
+            $this->initializeCore();
+        }
+
+
+    }
+
     /** {@inheritdoc} */
     public function loadProviders()
     {
